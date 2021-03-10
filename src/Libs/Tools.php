@@ -1,5 +1,5 @@
 <?php
-namespace Isen\BackOfficeBundle\Libs;
+namespace App\Libs;
 
 use App\Entity\Salarie;
 use App\Entity\DeclarationHonneur;
