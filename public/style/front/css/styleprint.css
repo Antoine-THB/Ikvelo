@@ -1,0 +1,165 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 avr. 2017, 11:58:51
+    Author     : christophe
+*/
+#entete #logo,
+#entete #menu {
+    float: left;
+    padding: 15px;
+}
+
+#entete #menu .item{
+    float: left;
+    padding: 15px;
+}
+
+.clear {
+    clear: both;
+}
+
+#entete {
+border-bottom: 1px solid #714f6c;
+}
+
+#entete #titre {
+    font-weight: bold;
+    font-size: 40px;
+    padding-top: 10px;
+    padding-left: 150px;
+}
+
+/* gestion du footer */
+#footer {
+    background-color: #714f6c;
+    color: #fff;
+    margin-top: 20px;
+}
+
+#footer #copyright {
+    float: left;
+    padding: 15px;
+    font-size: 10px;
+}
+
+#footer #version {
+    float: right;
+    padding: 15px;
+    font-size: 10px;
+}
+
+/* gestion des liste */
+
+/* gestion des detail */
+.detail > span {
+    width: 100px;
+    display: inline-block;
+}
+
+/*  gestion des tableau */
+#test6 table  {
+    width: 600px;
+}
+thead tr {
+    background-color: #dbd4d4;
+}
+
+tbody tr.odd {
+    background-color: #fcfcdb;
+}
+
+tbody tr.even {
+    background-color: #fce3e3;
+}
+
+tbody td div.action {
+    display: inline;
+}
+
+/*tableau des page show*/
+table.show_subvention tr th {
+    text-align: left;
+    width: 200px;
+}
+
+#showdual {
+    float: left;
+    padding-right: 30px;
+}
+
+.logout a {
+    font-weight: bold;
+    color: red;
+}
+
+/* formulaire */
+
+
+#backform  form > div > div > div {
+    display: inline-block;
+}
+
+#backform   label{
+    display: inline-block;
+    font-weight: bold;
+    width: 150px;
+}
+
+#backform  form >  input.submit {
+    margin-left: 200px;
+}
+
+/* formulaire SECTIION */
+form div div {
+    padding-bottom: 10px;
+}
+
+form div div label {
+    display: inline-block;
+    font-weight: bold;
+    width: 150px;
+}
+
+/* page internaute / annonces */
+.detail .internaute{
+    float: left;
+}
+.detail .annonce {
+    float: left;
+    margin-left: 50px;
+}
+
+
+/* show subvention */
+table.show_subvention tr  th {
+    text-align: left;
+}
+
+table.show_subvention tr  {
+    border-bottom: black dotted 1px;
+}
+
+table.signature {
+    width: 250px;
+    border: black dotted 1px;
+    margin-left: 150px;
+}
+
+/* liste subventions */
+.new_dmd {
+    padding-top: 30px;
+}
+
+/* nouvelle demande */
+.message {
+    padding-top: 30px;
+    color: red;
+}
+
+.lien_retour {
+    padding-top: 30px;
+}

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ParcoursDate
  *
  * @ORM\Table(name="parcours_date", indexes={@ORM\Index(name="fk_parcours", columns={"id_parcours"}), @ORM\Index(name="fk_type_trajet", columns={"id_type_trajet"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ParcoursDateRepository")
  */
 class ParcoursDate
 {

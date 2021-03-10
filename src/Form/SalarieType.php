@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;;
 
 class SalarieType extends AbstractType
 {
@@ -19,7 +20,7 @@ class SalarieType extends AbstractType
                 ->add('nom')
                 ->add('prenom')
                 ->add('adresse')
-                ->add('distance')
+                ->add('distance', TextType::class)
                 ->add('urlGeovelo')
                 //->add('created')
                 //->add('updated')

@@ -1,0 +1,241 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 avr. 2017, 11:58:51
+    Author     : christophe
+*/
+
+h3 {
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+#entete #logo,
+#entete #menu {
+    float: left;
+    padding: 15px;
+}
+
+#entete #menu .item{
+    float: left;
+    padding: 15px;
+}
+
+#entete #menu .itemname{
+    float: right;
+    padding: 15px;
+    margin-left: 200px;
+    font-weight: bold;
+}
+
+
+
+.clear {
+    clear: both;
+}
+
+#entete {
+border-bottom: 1px solid #714f6c;
+}
+
+/* gestion du footer */
+#footer {
+    background-color: #E40613;
+    color: #fff;
+    margin-top: 20px;
+}
+
+#footer #copyright {
+    float: left;
+    padding: 15px;
+    font-size: 10px;
+}
+
+#footer #version {
+    float: right;
+    padding: 15px;
+    font-size: 10px;
+}
+
+/* CORPS */
+#corps {
+    padding-left: 30px; 
+}
+
+/* gestion des listes */
+.montant-periode {
+    border: blueviolet dotted 1px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 500px;
+}
+
+table tr.valide {
+    background-color: #ddf3c2;
+    text-align: center;
+}
+
+table tr.encours {
+    background-color: #fedbdb;
+    text-align: center;
+}
+
+/* gestion des detail */
+.detail > span {
+    width: 100px;
+    display: inline-block;
+}
+
+/*  gestion des tableau */
+#test6 table  {
+    width: 600px;
+}
+thead tr {
+    background-color: #dbd4d4;
+}
+
+tbody tr.odd {
+    background-color: #fcfcdb;
+}
+
+tbody tr.even {
+    background-color: #fce3e3;
+}
+
+tbody td div.action {
+    display: inline;
+}
+
+/*tableau des page show*/
+table.show tr th {
+    text-align: left;
+    
+}
+
+#showdual {
+    float: left;
+    padding-right: 30px;
+}
+
+.logout a {
+    font-weight: bold;
+    color: red;
+}
+
+/* formulaire */
+
+
+#corps  form > div > div {
+    margin-bottom: 5px;
+}
+
+#corps  form > div > div > div {
+    display: inline-block;
+}
+
+#corps   label{
+    display: inline-block;
+    font-weight: bold;
+    width: 150px;
+}
+
+#corps  form >  input.submit {
+    margin-left: 200px;
+}
+
+/* formulaire SECTIION */
+form div div {
+    padding-bottom: 10px;
+}
+
+form div div label {
+    display: inline-block;
+    font-weight: bold;
+    width: 150px;
+}
+
+/* page internaute / annonces */
+.detail .internaute{
+    float: left;
+}
+.detail .annonce {
+    float: left;
+    margin-left: 50px;
+}
+
+
+/* show subvention */
+table.show_subvention tr  th {
+    text-align: left;
+}
+
+table.show_subvention tr  {
+    border-bottom: black dotted 1px;
+}
+
+table.signature {
+    width: 250px;
+    border: black dotted 1px;
+    margin-left: 150px;
+}
+
+/* liste subventions */
+.new_dmd {
+    padding-top: 30px;
+}
+
+/* nouvelle demande */
+.message {
+    padding-top: 30px;
+    color: red;
+}
+
+.lien_retour {
+    padding-top: 30px;
+}
+
+
+/* PROFIL */
+#profil .item  {
+    margin-bottom: 5px;
+}
+#profil .item .label {
+    width: 120px;
+    display: inline-block;
+    font-weight: bold;
+    
+}
+#declaration {
+    border: black dotted 1px;
+    padding-left: 10px;
+}
+
+/* grille accueil */
+.format-grid-1 {
+    width: 90%;
+}
+
+.monmessage {
+    width: 400px;
+    margin-bottom: 10px;
+}
+
+.message-stat {
+    width: 600px;
+}
+
+/* IMPRESSION */
+.list-print {
+    width: 90%;
+}
+
+.total-indemnisation {
+    width: 250px;
+    border: black dotted 1px;
+    font-weight: bold;
+    padding-left: 10px;
+    color: red;
+}

@@ -3,10 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('style/favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('style/back/css/knacss.css') }}">
+        <link rel="stylesheet" href="{{ asset('style/back/css/style.css') }}">   
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        
+        {% include('entetePrint.html.twig') %}
+        <div id="corps">
+            {% block body %}{% endblock %}
+            {% block javascripts %}{% endblock %}
+        </div>
+        {% include('footerPrint.html.twig') %}
     </body>
 </html>

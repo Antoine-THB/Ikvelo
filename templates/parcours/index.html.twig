@@ -23,8 +23,8 @@
         {% for parcour in parcours %}
             <tr>                
                 <td>{{ parcour.annee }}</td>
-                <td>{{ parcour.idMois }}</td>
-                <td>{{ parcour.idSalarie }}</td>
+                <td>{{ parcour.idMois.mois }}</td>
+                <td>{{ parcour.idSalarie.casUsername }}</td>
                 <td>{{ parcour.descriptTrajet }}</td>
                
                 <td>{{ parcour.nbKmEffectue }}&nbsp;km</td>

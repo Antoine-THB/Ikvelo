@@ -6,6 +6,7 @@ use App\Entity\Parcours;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ParcoursType extends AbstractType
 {
@@ -18,8 +19,8 @@ class ParcoursType extends AbstractType
                 ->add('veloUniq')
                 ->add('descriptTrajet')
                 ->add('distanceBase')
-                ->add('nbKmEffectue')
-                ->add('indemnisation')
+                ->add('nbKmEffectue', TextType::class)
+                ->add('indemnisation', TextType::class)
                 //->add('dateCreation',null,['disabled' => true])
                 ->add('cloture')
                 ->add('validation')

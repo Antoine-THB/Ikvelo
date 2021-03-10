@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Parcours;
+use App\Entity\ParcoursDate;
 use App\Form\ParcoursSearchType;
-use App\Repository\ParcoursRepository;
+use App\Form\ParcoursType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

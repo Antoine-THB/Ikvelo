@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Demande de {{ parcour.idSalarie }}</h1>
+    <h1>Demande de {{ parcour.idSalarie.casUsername }}</h1>
     <section class="grid-2">
     <div >
     <table>
@@ -12,7 +12,7 @@
             </tr>
             <tr>
                 <th>Annee - Mois</th>
-                <td>{{ parcour.annee }} - {{ parcour.idMois }}</td>
+                <td>{{ parcour.annee }} - {{ parcour.idMois.mois }}</td>
             </tr>
             <tr>
                 <th>Velo uniquement</th>

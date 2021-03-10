@@ -1,0 +1,196 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 avr. 2017, 11:58:51
+    Author     : christophe
+*/
+h3 {
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+#entete #logo,
+#entete #menu {
+    float: left;
+    padding: 15px;
+}
+
+#entete #menu .item{
+    float: left;
+    padding: 15px;
+}
+
+#entete #menu .itemname{
+    float: right;
+    padding: 15px;
+    margin-left: 200px;
+    font-weight: bold;
+}
+.clear {
+    clear: both;
+}
+
+#entete {
+border-bottom: 1px solid #714f6c;
+}
+
+/* gestion du footer */
+#footer {
+    background-color: #E40613;
+    color: #fff;
+    margin-top: 20px;
+}
+
+#footer #copyright {
+    float: left;
+    padding: 15px;
+    font-size: 10px;
+}
+
+#footer #version {
+    float: right;
+    padding: 15px;
+    font-size: 10px;
+}
+
+/* CORPS */
+#corps {
+    padding-left: 30px; 
+}
+
+/* gestion des liste */
+.montant-periode {
+    border: blueviolet dotted 1px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 500px;
+}
+
+/* gestion des detail */
+.detail > span {
+    width: 100px;
+    display: inline-block;
+}
+
+/*  gestion des tableau */
+#test6 table  {
+    width: 600px;
+}
+thead tr {
+    background-color: #dbd4d4;
+}
+
+tbody tr.odd {
+    background-color: #f7e9fe;
+}
+
+tbody tr.even {
+    background-color: #fce3e3;
+}
+
+tbody td div.action {
+    display: inline;
+}
+
+
+
+tbody tr td {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* validation/non validation */
+.valid{
+    color: green;
+}
+
+.novalid{
+    color: red;
+}
+
+/*tableau des page show*/
+table.show tr th {
+    text-align: left;
+    
+}
+
+#showdual {
+    float: left;
+    padding-right: 30px;
+}
+
+.logout a {
+    font-weight: bold;
+    color: red;
+}
+
+/* formulaire */
+p.msg {
+    font-weight: bold;
+    color: red;
+}
+
+#backform  form > div > div {
+    margin-bottom: 5px;
+}
+
+#backform  form > div > div > div {
+    display: inline-block;
+}
+
+#backform   label{
+    display: inline-block;
+    font-weight: bold;
+    width: 150px;
+}
+
+#backform  form >  input.submit {
+    margin-left: 200px;
+}
+
+/* formulaire SECTIION */
+form div div {
+    padding-bottom: 10px;
+}
+
+form div div label {
+    display: inline-block;
+    font-weight: bold;
+    width: 150px;
+}
+
+/* page internaute / annonces */
+.detail .internaute{
+    float: left;
+}
+.detail .annonce {
+    float: left;
+    margin-left: 50px;
+}
+
+
+/* ACCUEIL */
+.liste-accueil {
+    width: 90%;
+}
+
+/* Recherche */
+section.recherche {
+    border: 1px solid #714f6c;
+    padding: 5px;
+    width: 50%;
+}
+
+
+/* IMPRESSION */
+.table-print {
+    width: 90%;
+}
+
+#entete #adresse {
+    float: right;
+    padding: 15px;
+}

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Entreprise;
+use App\Entity\Ville;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,7 +33,7 @@ class EntrepriseType extends AbstractType
                  */
                 ->add('adresse')
                 ->add('idVille', EntityType::class, [
-                    'class' => 'IsenBackOfficeBundle:Ville',
+                    'class' => Ville::class,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')
                                 ->where('u.actif=TRUE')

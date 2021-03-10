@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Parcours
  *
  * @ORM\Table(name="parcours", indexes={@ORM\Index(name="fk_salarie", columns={"id_salarie"}), @ORM\Index(name="FK_parcours_mois", columns={"id_mois"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ParcoursRepository")
  */
 class Parcours
 {
