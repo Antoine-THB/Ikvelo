@@ -1,0 +1,40 @@
+{% extends 'basePrint.html.twig' %}
+
+{% block body %}
+    <h1>Bilan des indemnisations IkVélo pour {{varIdMois}} {{ varAnnee}} </h1>
+    
+    <br>
+    
+
+    <table class="table-print">
+        <thead>
+            <tr>
+                <th>Année</th>
+                <th>Mois</th>
+                <th>Salarié</th>
+                <th>Nb km</th>
+                <th>Indemnisation</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for parcour in parcours %}
+            <tr class="{% if loop.index is divisible by(2) %}even{% else %}odd{% endif %}">
+
+                <td>{{ parcour.annee }}</td>
+                <td>{{ parcour.idMois }}</td>
+                <td>{{ parcour.idSalarie }}</td>
+                <td>{{ parcour.nbKmEffectue }}&nbsp;km</td>
+                <td>{{ parcour.indemnisation }}&nbsp;€</td>
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        <br>
+        <br>
+        Fait à Brest, le {{ "now"|date("d/m/Y") }}
+        <br>
+        <br>
+        <a href="#" OnClick="javascript:window.print()">Imprimer</a>
+{% endblock %}

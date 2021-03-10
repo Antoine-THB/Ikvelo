@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Type config list</h1>
+
+    <table>
+        <thead>
+            <tr>
+
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typeConfig in typeConfigs %}
+            <tr>
+
+                <td>{{ typeConfig.typeConfig }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('typeconfig_show', { 'id': typeConfig.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('typeconfig_edit', { 'id': typeConfig.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('typeconfig_new') }}">Nouveau typeConfig</a>
+        </li>
+    </ul>
+{% endblock %}

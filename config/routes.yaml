@@ -1,3 +1,44 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+
+# isen_front_profil_edit:
+#     path:     /profil/edit
+#     defaults: { _controller: Front:profilEdit }    
+# isen_front_parcours:
+#     path:     /deplacement/list
+#     defaults: { _controller: Front:parcoursList }    
+# isen_front_new_mensuel:
+#     path:     /mensuel/new
+#     defaults: { _controller: Front:mensuelNew }  
+# isen_front_list_dep_jour:
+#     path:     /mensuel/jour/list
+#     defaults: { _controller: Front:jourList } 
+# isen_front_mensuel_detail:
+#     path:     /mensuel/show/{id}
+#     defaults: { _controller: Front:mensuelShow }  
+# isen_front_mensuel_print:
+#     path:     /mensuel/print/{id}
+#     defaults: { _controller: Front:mensuelPrint }     
+# isen_front_clot_dep_jour:
+#     path:     /mensuel/clot/{id}
+#     defaults: { _controller: Front:mensuelClot }    
+# isen_front_new_dep_jour:
+#     path:     /mensuel/jour/new/{id}
+#     defaults: { _controller: Front:jourNew }     
+# isen_front_edit_dep_jour:
+#     path:     /mensuel/jour/edit/{id}
+#     defaults: { _controller: Front:jourEdit }  
+# isen_front_ville_search: 
+#     path:     /ville/search
+#     defaults: { _controller: Front:villeSearch }  
+# isen_front_ville_add: 
+#     path:     /ville/add/{id}
+#     defaults: { _controller: Front:villeAdd }     
+# isen_front_declaration_print: 
+#     path:     /declaration/print/{id}
+#     defaults: { _controller: Front:declarationPrint } 
+# isen_front_del_dep_jour: 
+#     path:     /mensuel/jour/delete/{id}
+#     defaults: { _controller: Front:deleteParcoursDate }     

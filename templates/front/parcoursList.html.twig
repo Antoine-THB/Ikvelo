@@ -1,0 +1,48 @@
+{% extends 'FrontOffice/base.html.twig' %}
+
+{% block body %}
+    <div id="body">
+        <h1>Bienvenue {{ user.prenom }}&nbsp;{{ user.nom }}</h1>
+    </div>
+        <h1>Parcours list</h1>
+
+    <table class="table--zebra">
+        <thead>
+            <tr>
+
+                <th>Annee</th>
+                <th>Mois</th>
+                <th>Trajet</th>
+                <th>Distance</th>
+                <th>Nb km total</th>
+                <th>Indemnisation</th>                
+                <th>Cloture</th>
+                <th>Validation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parcour in parcours %}
+            <tr>
+
+                <td>{{ parcour.annee }}</td>
+                <td>{{ parcour.idMois }}</td>
+                <td>{{ parcour.descriptTrajet }}</td>
+                <td>{{ parcour.distanceBase }}</td>
+                <td>{{ parcour.nbKmEffectue }}</td>
+                <td>{{ parcour.indemnisation }}</td>                
+                <td>{% if parcour.cloture %}Oui{% else %}Non{% endif %}</td>
+                <td>{% if parcour.validation %}Oui{% else %}Non{% endif %}</td>
+                <td>                   
+                    <a href="{{ path('isen_front_mensuel_detail', { 'id': parcour.id }) }}">Détails</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+

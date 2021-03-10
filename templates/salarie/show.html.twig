@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Salarie</h1>
+    <div class="grid-2 .has-gutter">
+        <div class="liste-accueil">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ salarie.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ salarie.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prenom</th>
+                        <td>{{ salarie.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>{{ salarie.adresse }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ville</th>
+                        <td>{{ salarie.idVille }}</td>
+                    </tr>
+                    <tr>
+                        <th>Distance</th>
+                        <td>{{ salarie.distance }}</td>
+                    </tr>
+                    <tr>
+                        <th>Urlgeovelo</th>
+                        <td>{{ salarie.urlGeovelo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Created</th>
+                        <td>{% if salarie.created %}{{ salarie.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Updated</th>
+                        <td>{% if salarie.updated %}{{ salarie.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Casusername</th>
+                        <td>{{ salarie.casUsername }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="liste-accueil">
+            {{ include('parcours/statToutAnnee.html.twig', {tabStatAn: tabStatAn, title: 'Statistiques pour toutes les années', moisRef: moisRef}) }}
+        </div>    
+    </div>
+
+    <ul>
+        <li>
+            <a href="{{ path('declaration_show', { 'id': declaration.id }) }}">Déclaration sur l'honneur</a>
+        </li>
+        <li>
+            <a href="{{ path('salarie_index') }}">Retour à la liste</a>
+        </li>
+        <li>
+            <a href="{{ path('salarie_edit', { 'id': salarie.id }) }}">Edition</a>
+        </li>
+
+    </ul>
+{% endblock %}

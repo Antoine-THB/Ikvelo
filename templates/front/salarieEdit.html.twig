@@ -1,0 +1,12 @@
+{% extends 'FrontOffice/base.html.twig' %}
+
+{% block body %}
+    <h1>Salarie edit</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Enregistrement" />
+    {{ form_end(edit_form) }}
+
+    <span class="value"><a href="{{ path('isen_front_ville_search') }}">Ma ville ne se trouve pas dans la liste</a></span>
+{% endblock %}

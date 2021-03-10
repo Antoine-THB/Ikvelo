@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Recherche des déclarations validées</h1>
+    {{ form_start(form) }}
+    <section class="grid-2 .has-gutter recherche">
+        {{ form_widget(form) }}
+        <div>
+        <input type="submit" value="Rechercher" />
+        </div>
+    </section>
+    {{ form_end(form) }}
+    <br>
+    <div>
+        <a href="javascript:ouvre_popup('{{ path('bilan_impression', { varAnnee: varAnnee, varIdMois: varIdMois }) }}')" >Impression du bilan des déclarations</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Année</th>
+                <th>Mois</th>
+                <th>Salarié</th>
+                <th>Nb km</th>
+                <th>Indemnisation</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for parcour in parcours %}
+            <tr class="{% if loop.index is divisible by(2) %}even{% else %}odd{% endif %}">
+
+                <td>{{ parcour.annee }}</td>
+                <td>{{ parcour.idMois }}</td>
+                <td>{{ parcour.idSalarie }}</td>
+                <td>{{ parcour.nbKmEffectue }}&nbsp;km</td>
+                <td>{{ parcour.indemnisation }}&nbsp;€</td>
+
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        
+<script type="text/javascript">
+function ouvre_popup(page) {
+ window.open(page,"nom_popup","menubar=no, status=no, scrollbars=no, menubar=no, width=1000, height=1000");
+}
+</script>
+{% endblock %}

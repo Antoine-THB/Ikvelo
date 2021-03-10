@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Demande de {{ parcour.idSalarie }}</h1>
+    <section class="grid-2">
+    <div >
+    <table>
+        <tbody>
+            <tr>
+                <th>N°</th>
+                <td>{{ parcour.id }}</td>
+            </tr>
+            <tr>
+                <th>Annee - Mois</th>
+                <td>{{ parcour.annee }} - {{ parcour.idMois }}</td>
+            </tr>
+            <tr>
+                <th>Velo uniquement</th>
+                <td>{% if parcour.veloUniq %}Oui{% else %}Non{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Trajet</th>
+                <td>{{ parcour.descriptTrajet }}</td>
+            </tr>
+            <tr>
+                <th>Distance de base</th>
+                <td>{{ parcour.distanceBase }}</td>
+            </tr>
+            <tr>
+                <th>Nb km réalisé</th>
+                <td>{{ parcour.nbKmEffectue }}&nbsp;km</td>
+            
+            </tr>
+            <tr>
+                <th>Indemnisation</th>
+                <td>{{ parcour.indemnisation }}&nbsp;€</td>
+            </tr>
+            <tr>
+                <th>Cloture</th>
+                <td>{% if parcour.cloture %}Oui{% else %}Non{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Validation</th>
+                <td>{% if parcour.validation %}Oui{% else %}Non{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{% if parcour.dateCreation %}{{ parcour.dateCreation|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            
+            <tr>
+                <th>Created</th>
+                <td>{% if parcour.created %}{{ parcour.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if parcour.updated %}{{ parcour.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+            </div>
+            
+    <div >
+        {{ include('parcoursdate/depJourList.html.twig', {depJours: parcourJours, mois: parcour.idmois, impression: 'non'}) }}
+    </div>
+</section>
+
+    <ul>
+        <li>
+            <a href="{{ path('parcours_index') }}">Retour à la liste</a>
+        </li>
+        {% if not parcour.validation %}
+        <li>
+            <a href="{{ path('parcours_edit', { 'id': parcour.id }) }}">Edition</a>
+        </li>
+            {% if  parcour.cloture %}
+            <li>
+                <a href="{{ path('parcours_valid', { 'id': parcour.id }) }}">Validation</a>
+            </li>
+            {% endif %}
+        {% endif %}
+
+    </ul>
+{% endblock %}

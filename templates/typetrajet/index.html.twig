@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Typetrajets list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typeTrajet in typeTrajets %}
+            <tr>
+                <td><a href="{{ path('typetrajet_show', { 'id': typeTrajet.id }) }}">{{ typeTrajet.id }}</a></td>
+                <td>{{ typeTrajet.libelle }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('typetrajet_show', { 'id': typeTrajet.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('typetrajet_edit', { 'id': typeTrajet.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('typetrajet_new') }}">Create a new typeTrajet</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,37 @@
+
+    <h2>Parcours journaliers </h2>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Jour</th>
+                <th>Déplacement</th>
+                <th>Nb km</th>
+                <th>Indemnisation</th>
+                {% if (impression == 'non' and not cloture) %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for depJour in depJours %}
+            <tr>
+
+                <td>{{ depJour.jourNum }}&nbsp;{{mois}}</td>
+                <td>{{ depJour.idTypeTrajet }}</td>
+                <td>{{ depJour.nbKmEffectue }}</td>
+                <td>{{ depJour.indemnisation }} €</td>
+                {% if (impression == 'non' and not cloture) %}
+                <td>                    
+                    
+                    <a href="{{ path('isen_front_edit_dep_jour', { 'id': depJour.id }) }}">Modifier</a>                        
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+

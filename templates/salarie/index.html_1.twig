@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Salariés</h1>
+    <h3>informations pour l'année en cours ({{an}})</h3>
+
+    <table  class="table">
+        <thead>
+            <tr>
+                <th>Identité</th>
+                <th>Login Cas</th>
+                <th>Adresse</th>
+                <th>Distance de base</th>
+                <th>Distance parcourue</th>
+                <th>Indemnisation</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tab in salaries %}
+            {% set salarie=tab[0] %}
+            <tr>
+
+                <td>{{ salarie.nom }}&nbsp;{{ salarie.prenom }}</td>
+                <td>{{ salarie.casUsername }}</td>
+                <td>{{ salarie.adresse }} - {{ salarie.idVille }}</td>
+                <td>{{ salarie.distance }} km</td>
+                <td>{{ tab['nbKmEffectue'] }} km</td>
+                <td>{{ tab['totIndemnisation'] }} €</td>
+ 
+                <td>{% if salarie.created %}{{ salarie.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+
+                
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('salarie_show', { 'id': salarie.id }) }}">Détail</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('salarie_edit', { 'id': salarie.id }) }}">Edition</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('salarie_new') }}">Nouveau salarié</a>
+        </li>
+    </ul>
+{% endblock %}

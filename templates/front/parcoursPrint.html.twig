@@ -1,0 +1,86 @@
+{% extends 'FrontOffice/basePrint.html.twig' %}
+
+{% block body %}
+    <h1>Demande d'indemnisation IK Vélo N° {{ parcour.id }}</h1>
+    
+    <div >
+    <table>
+        <tbody>
+            <tr>
+                <th>Annee / Mois</th>
+                <td>{{ parcour.annee }} / {{ parcour.idmois }}</td>
+            </tr>
+            <tr>
+                <th>Salarie</th>
+                <td>{{ salarie.Nom }} {{ salarie.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ salarie.Adresse }} - {{ salarie.IdVille.CodePostal }} - {{ salarie.IdVille }}</td>
+            </tr>
+            <tr>
+                <th>Lieu de travail</th>
+                <td>{{ salarie.IdEntreprise }}</td>
+            </tr>
+
+            <tr>
+                <th>Velo uniquement</th>
+                <td>{% if parcour.veloUniq %}Oui{% else %}Non{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Trajet</th>
+                <td>{{ parcour.descriptTrajet }}</td>
+            </tr>
+
+            <tr>
+                <th>Nb km effectués</th>
+                <td>{{ parcour.nbKmEffectue }}&nbsp;km</td>
+            </tr>
+            <tr>
+                <th>Indemnisation</th>
+                <td>{{ parcour.indemnisation }}&nbsp;€</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{% if parcour.dateCreation %}{{ parcour.dateCreation|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Formulaire clot</th>
+                <td>{% if parcour.cloture %}Oui{% else %}
+                        Non 
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Formulaire validé</th>
+                <td>{% if parcour.validation %}Oui{% else %}Non{% endif %}</td>
+            </tr>
+
+        </tbody>
+    </table>
+    </div>
+            
+    <div class="list-print">
+        {{ include('FrontOffice/default/depJourList.html.twig', {depJours: parcourJours, mois: parcour.idmois, impression: 'oui'}) }}
+    </div>
+    <div class="total-indemnisation">
+        Total Indemnisation : {{ parcour.indemnisation }}&nbsp;€
+    </div>
+    <br><br><br> 
+    <div class="date">
+        Date : le {{ "now"|date("d/m/Y") }}
+    </div>    
+    <table class="signature">
+        <tr>
+            <td class="label">Signature du salarié</td>
+        </tr>
+        <tr>
+            <td class="signe">&nbsp;<br><br><br></td>
+        </tr>
+    </table>
+    <br>
+    <div id="imprimer_message">
+        <p><a href="#" onclick="javascript:window.print()">Imprimer</a></p>
+    </div>
+    
+{% endblock %}

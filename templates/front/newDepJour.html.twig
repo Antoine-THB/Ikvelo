@@ -1,0 +1,62 @@
+{% extends 'FrontOffice/base.html.twig' %}
+
+{% block body %}
+    <h1>{{titre}} déplacement pour le mois de  {{mois}} {{annee}}</h1>
+    
+    {% if  monmessage  %}
+        <div class="alert--warning monmessage">
+            {{monmessage|nl2br}}
+        </div>
+    {% endif %}
+    
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Enregistrez" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('isen_front_mensuel_detail', { 'id': parcoursId }) }}">Retour au parcours</a>
+        </li>
+        {% if delete_form %}
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Suppression">
+            {{ form_end(delete_form) }}
+        </li>
+        {% endif %}
+    </ul>
+        <div></div>
+<script>
+    $( "#isen_backofficebundle_parcoursdate_idTypeTrajet" ).change(  function() {
+        //$( "div" ).text( 'test' );
+        //alert($( "#isen_backofficebundle_parcoursdate_idTypeTrajet  option:selected" ).val());
+        //alert($("#isen_backofficebundle_parcoursdate_kminit").val())
+        var monkminit = $("#isen_backofficebundle_parcoursdate_kminit").val();
+        var moncoef = $("#isen_backofficebundle_parcoursdate_coef").val();
+        if($( "#isen_backofficebundle_parcoursdate_idTypeTrajet  option:selected" ).val() == 1){
+            //alert(moncoef);
+            //$("#isen_backofficebundle_parcoursdate_nbKmEffectue").text() = $("#isen_backofficebundle_parcoursdate_kminit").val()*2;
+            $("#isen_backofficebundle_parcoursdate_nbKmEffectue").val( monkminit*2);
+           // $("#isen_backofficebundle_parcoursdate_indemnisation").disabled );
+            $("#isen_backofficebundle_parcoursdate_indemnisation").val( monkminit*2*moncoef);
+            // $("#isen_backofficebundle_parcoursdate_indemnisation").disabled = true;
+        }else{
+            //alert($("#isen_backofficebundle_parcoursdate_kminit").val()*1);
+            $("#isen_backofficebundle_parcoursdate_nbKmEffectue").val( monkminit*1);
+             //$("#isen_backofficebundle_parcoursdate_indemnisation").disabled = false;
+            $("#isen_backofficebundle_parcoursdate_indemnisation").val( monkminit*1*moncoef);
+             //$("#isen_backofficebundle_parcoursdate_indemnisation").disabled = true;
+        }
+    });
+    
+    $( "#isen_backofficebundle_parcoursdate_nbKmEffectue" ).focusout( function() {
+        //alert('test');
+        var monkmsaisie = $("#isen_backofficebundle_parcoursdate_nbKmEffectue").val();
+        var moncoef = $("#isen_backofficebundle_parcoursdate_coef").val();
+        $("#isen_backofficebundle_parcoursdate_indemnisation").val( monkmsaisie*1*moncoef);
+       
+    });
+    
+</script>
+{% endblock %}

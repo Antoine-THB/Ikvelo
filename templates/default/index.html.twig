@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="body">
+        <h1>Bienvenue sur l'admin du BackOffice </h1>
+        <div class="grid-2 .has-gutter">
+            <div class="liste-accueil">
+                {{ include('parcours/listAccueil.html.twig', {parcours: parcoursNV, title: 'validées'}) }}
+            </div> 
+            <div class="liste-accueil" >
+                {{ include('parcours/listAccueil.html.twig', {parcours: parcoursNC, title: 'closes'}) }}
+            </div> 
+            <div class="liste-accueil" >
+                {{ include('parcours/statAnnee.html.twig', {tabStat: tabStat, title: 'Statistiques pour l\'année en cours'}) }}
+            </div> 
+            <div class="liste-accueil" >
+                {{ include('parcours/statToutAnnee.html.twig', {tabStatAn: tabStatAn, title: 'Statistiques pour Toutes les années', moisRef: moisRef}) }}
+            </div> 
+            
+
+        </div>    
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,40 @@
+    <h2>Liste des demandes non {{title}}</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Annee</th>
+                <th>Mois</th>
+                <th>Salarié</th>
+                <th>Km</th>
+                <th>Indemnisation</th>
+                <th>Creation</th>
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parcour in parcours %}
+            <tr>
+
+                <td>{{ parcour.annee }}</td>
+                <td>{{ parcour.idMois.mois }}</td>
+                <td>{{ parcour.idSalarie }}</td>
+
+                <td>{{ parcour.nbKmEffectue }}&nbsp;km</td>
+                <td>{{ parcour.indemnisation }}&nbsp;€</td>
+                <td>{% if parcour.dateCreation %}{{ parcour.dateCreation|date('d-m-Y') }}{% endif %}</td>
+               
+                <td>
+                    
+                    <a href="{{ path('parcours_show', { 'id': parcour.id }) }}">Détails</a>
+                       
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+

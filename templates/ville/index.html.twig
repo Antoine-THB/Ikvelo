@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Villes (actives) </h1>
+    <div class="blk-search">
+        <a href="{{ path('ville_recherche') }}">Recherche de ville</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Département</th>
+                <th>Ville</th>
+                <th>Code postal</th>
+                <th>Actif</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ville in villes %}
+            <tr class="{% if loop.index is divisible by(2) %}even{% else %}odd{% endif %}">
+
+                <td>{{ ville.numDepartement }}</td>
+                <td>{{ ville.ville }}</td>
+                <td>{{ ville.codePostal }}</td>
+                <td>{% if ville.actif %}Oui{% else %}Non{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('ville_show', { 'id': ville.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('ville_edit', { 'id': ville.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="blck-liens">
+        <div>
+            <a href="{{ path('ville_new') }}">Créez une nouvelle ville</a>
+        </div>
+        
+    </div>
+{% endblock %}

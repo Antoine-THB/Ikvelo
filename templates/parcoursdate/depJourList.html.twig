@@ -1,0 +1,30 @@
+
+    <h2>Parcours journaliers </h2>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Jour</th>
+                <th>Déplacement</th>
+                <th>Nb km</th>
+                <th>Indemnisation</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for depJour in depJours %}
+            <tr>
+
+                <td>{{ depJour.jourNum }}&nbsp;{{mois}}</td>
+                <td>{{ depJour.idTypeTrajet }}</td>
+                <td>{{ depJour.nbKmEffectue }}</td>
+                <td>{{ depJour.indemnisation }} €</td>
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Mois list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Mois</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mois in mois %}
+            <tr>
+                <td><a href="{{ path('mois_show', { 'id': mois.id }) }}">{{ mois.id }}</a></td>
+                <td>{{ mois.mois }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('mois_show', { 'id': mois.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('mois_edit', { 'id': mois.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('mois_new') }}">Create a new mois</a>
+        </li>
+    </ul>
+{% endblock %}

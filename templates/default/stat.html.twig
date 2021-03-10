@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="body">    
+    <h1>{{title}}</h1>
+    <h3>en fonction du mois de cloture comptable ({{moisRef}})</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Annee</th>
+                <th>Salarié</th>
+                
+                <th>Nombre total Km</th>
+                <th>Indemnisation totale</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for stat in tabStatAn %}
+            <tr>
+
+                <td>{{ stat.newan }}</td>
+                <td>{{ stat.nom }} {{ stat.prenom }}</td>
+                <td>{{ stat.nbKmEffectue }}&nbsp;km</td>
+
+                <td>{{ stat.totIndemnisation }}&nbsp;€</td>
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </div>
+{% endblock %}
+

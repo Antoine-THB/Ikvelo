@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Admin Subvention - Ikvélo{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/back/css/knacss.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/back/css/style.css') }}">
+    </head>
+    <body>
+        {% include('BackOffice/entetePrint.html.twig') %}
+        <div id="corps">
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        </div>
+        {% include('BackOffice/footerPrint.html.twig') %}
+    </body>
+</html>

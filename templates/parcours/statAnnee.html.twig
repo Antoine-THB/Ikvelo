@@ -1,0 +1,31 @@
+    <h2>{{title}}</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Annee</th>
+                <th>Mois</th>
+                
+                <th>Nombre total Km</th>
+                <th>Indemnisation totale</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for stat in tabStat %}
+            <tr>
+
+                <td>{{ stat.annee }}</td>
+                <td>{{ stat.mois }}</td>
+                <td>{{ stat.nbKmEffectue }}&nbsp;km</td>
+
+                <td>{{ stat.totIndemnisation }}&nbsp;€</td>
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+

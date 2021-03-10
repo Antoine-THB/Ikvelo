@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class TypeConfig
 {
     /**
-     * @var int
+     * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -28,22 +28,44 @@ class TypeConfig
      */
     private $typeConfig;
 
-    public function getId(): ?int
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getTypeConfig(): ?string
-    {
-        return $this->typeConfig;
-    }
-
-    public function setTypeConfig(string $typeConfig): self
+    /**
+     * Set typeConfig
+     *
+     * @param string $typeConfig
+     *
+     * @return TypeConfig
+     */
+    public function setLibelle($typeConfig)
     {
         $this->typeConfig = $typeConfig;
 
         return $this;
     }
 
-
+    /**
+     * Get typeConfig
+     *
+     * @return string
+     */
+    public function getTypeConfig()
+    {
+        return $this->typeConfig;
+    }
+    
+    public function __toString()
+    {
+        return $this->typeConfig;
+    }
 }

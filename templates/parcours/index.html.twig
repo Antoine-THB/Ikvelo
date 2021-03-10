@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Demandes</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Annee</th>
+                <th>Mois</th>                
+                <th>Salarié</th>
+                <th>Trajet</th>
+                <th>Nb km</th>
+                <th>Indemnisation</th>
+                
+                <th>Cloturé</th>
+                <th>Validé</th>
+                
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parcour in parcours %}
+            <tr>                
+                <td>{{ parcour.annee }}</td>
+                <td>{{ parcour.idMois }}</td>
+                <td>{{ parcour.idSalarie }}</td>
+                <td>{{ parcour.descriptTrajet }}</td>
+               
+                <td>{{ parcour.nbKmEffectue }}&nbsp;km</td>
+                <td>{{ parcour.indemnisation }}&nbsp;€</td>
+               
+                <td>{% if parcour.cloture %}Oui{% else %}Non{% endif %}</td>
+                <td>{% if parcour.validation %}Oui{% else %}Non{% endif %}</td>
+                
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('parcours_show', { 'id': parcour.id }) }}">Détails</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('parcours_edit', { 'id': parcour.id }) }}">Edition</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+            <a href="{{ path('parcours_new') }}">Nouvelle demande</a>
+
+{% endblock %}

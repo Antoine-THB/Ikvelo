@@ -1,0 +1,19 @@
+{% extends 'FrontOffice/base.html.twig' %}
+
+{% block body %}
+    <h1>Nouvelle demande mensuelle</h1>
+    {% if  monmessage  %}
+        <div class="alert--warning monmessage">
+            {{monmessage|nl2br}}
+        </div>
+    {% endif %}
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Enregistrement" />
+    {{ form_end(form) }}
+
+
+            <a href="{{ path('isen_front_parcours') }}">Retour à la liste</a>
+
+{% endblock %}

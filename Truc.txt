@@ -1,0 +1,48 @@
+Les pages me mettent des erreurs : 
+	- Config
+	- les autres il y a un pb de routes
+
+Pour Default Controller il faut un fichier, dans S3 il était placé dans un dossier libs
+Ou dois je le mettre.
+
+Que dois je mettre dans les forms ligne 35 dans MoisType.php
+
+Que dois je mettre dans le getRepository
+
+, methods={"GET"}
+
+, methods={"GET", "POST"}
+
+, methods={"DELETE"}
+
+::class
+
+
+
+PROBLEME:
+
+	- ParcoursDateController edit & new
+    - SalarieController sur Index 
+    - DeclarationHonneur.html.twig configs 
+    - il n'y a pas de TypeConfigType 
+    - VilleController dans recherche & edit & new
+
+
+FrontOfficeBundle
+    - On le met ou
+    _ Ligne 600, 696
+
+
+
+A faire :
+    - dossier ressources 
+    - mettre sur git 
+    - utiliser un user
+    - TypeConfifType
+
+
+Erreur : 
+    - Salarie Entity 
+    - Parcours Controller index
+    - Modification du mois_deb en moisrefInt dans Parcours Repository ligne 502
+    

@@ -1,0 +1,18 @@
+<div id="entete">
+    <div id="logo">
+        {% if app.environment == 'dev' %}
+            <img src="{{ asset('/bundles/back/images/Yncrea_BM_ISEN-Brest_horizontal.jpg') }}" alt="CSE Yncrea" style="width:200px;">
+        {% else %}
+            <img src="{{ asset('/rh/ikvelo/bundles/back/images/Yncrea_BM_ISEN-Brest_horizontal.jpg') }}" alt="CSE Yncrea" style="width:200px;">
+        {% endif %}
+    </div>
+    <div id="adresse">
+        ISEN Yncrea Ouest<br>
+        20 rue Cuirassé Bretagne<br>
+        29200 BREST<br>
+        
+        
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>

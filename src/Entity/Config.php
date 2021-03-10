@@ -6,16 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Config
- *
+ * 
  * @ORM\Table(name="config", indexes={@ORM\Index(name="fk_id_type_config", columns={"id_type_config"})})
  * @ORM\Entity
  */
 class Config
 {
     /**
-     * @var int
+     * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -29,18 +29,18 @@ class Config
     private $libelle;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="value", type="string", length=255, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="value", type="string", length=255, nullable=true)
      */
-    private $value = 'NULL';
-
+    private $value;
+    
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="value_num", type="decimal", precision=10, scale=2, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="value_num", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $valueNum = 'NULL';
+    private $valueNum;
 
     /**
      * @var string
@@ -48,100 +48,177 @@ class Config
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
      */
     private $description;
-
+    
     /**
-     * @var bool
+     * @var boolean
      *
      * @ORM\Column(name="actif", type="boolean", nullable=false)
      */
-    private $actif = '0';
-
+    private $actif;
+    
     /**
-     * @var \TypeConfig
+     * @var TypeConfig 
      *
      * @ORM\ManyToOne(targetEntity="TypeConfig")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_type_config", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_type_config", referencedColumnName="id", nullable=false)
      * })
      */
     private $idTypeConfig;
 
-    public function getId(): ?int
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getLibelle(): ?string
-    {
-        return $this->libelle;
-    }
-
-    public function setLibelle(string $libelle): self
+    /**
+     * Set libelle
+     *
+     * @param string $libelle
+     *
+     * @return Config
+     */
+    public function setLibelle($libelle)
     {
         $this->libelle = $libelle;
 
         return $this;
     }
 
-    public function getValue(): ?string
+    /**
+     * Get libelle
+     *
+     * @return string
+     */
+    public function getLibelle()
     {
-        return $this->value;
+        return $this->libelle;
     }
 
-    public function setValue(?string $value): self
+    /**
+     * Set value
+     *
+     * @param string $value
+     *
+     * @return Config
+     */
+    public function setValue($value)
     {
         $this->value = $value;
 
         return $this;
     }
 
-    public function getValueNum(): ?string
+    /**
+     * Get value
+     *
+     * @return string
+     */
+    public function getValue()
     {
-        return $this->valueNum;
+        return $this->value;
     }
-
-    public function setValueNum(?string $valueNum): self
+    
+    /**
+     * Set valueNum
+     *
+     * @param string $value
+     *
+     * @return Config
+     */
+    public function setValueNum($valueNum)
     {
         $this->valueNum = $valueNum;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    /**
+     * Get valueNum
+     *
+     * @return string
+     */
+    public function getValueNum()
     {
-        return $this->description;
+        return $this->valueNum;
     }
 
-    public function setDescription(string $description): self
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Config
+     */
+    public function setDescription($description)
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getActif(): ?bool
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
     {
-        return $this->actif;
+        return $this->description;
     }
-
-    public function setActif(bool $actif): self
+    
+    /**
+     * Set actif
+     *
+     * @param boolean $actif
+     *
+     * @return Config
+     */
+    public function setActif($actif)
     {
         $this->actif = $actif;
 
         return $this;
     }
 
-    public function getIdTypeConfig(): ?TypeConfig
+    /**
+     * Get actif
+     *
+     * @return boolean
+     */
+    public function getActif()
     {
-        return $this->idTypeConfig;
+        return $this->actif;
     }
-
-    public function setIdTypeConfig(?TypeConfig $idTypeConfig): self
+    
+    /**
+     * Set idTypeConfig
+     *
+     * @param \src\Entity\TypeConfig $idTypeConfig
+     *
+     * @return Config
+     */
+    public function setIdTypeConfig(TypeConfig $idTypeConfig = null)
     {
         $this->idTypeConfig = $idTypeConfig;
 
         return $this;
     }
 
-
+    /**
+     * Get idTypeConfig
+     *
+     * @return \src\Entity\TypeConfig 
+     */
+    public function getIdTypeConfig()
+    {
+        return $this->idTypeConfig;
+    }
 }

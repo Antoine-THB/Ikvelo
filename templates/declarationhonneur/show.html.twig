@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    
+
+    <div>
+       <h1> ATTESTATION SUR L’HONNEUR</h1>
+       <span>DEMANDE de l’indemnité kilométrique vélo (ikVélo)</span>
+       <br>
+       <p>
+        Je soussigné(e), {{declaration.idSalarie}}, demeurant au {{declaration.adresse}} 
+        – {{declaration.idVille.codePostal}} {{declaration.idVille}}
+        Travaillant sur le site de {{declaration.idEntreprise}} - 
+        {{declaration.idEntreprise.adresse}}, {{declaration.idEntreprise.idVille.codePostal}}
+        {{declaration.idEntreprise.idVille}}
+       </p>
+       <p>
+           J’atteste sur l’honneur :<br>
+            utiliser mon vélo personnel pour effectuer tout ou partie du trajet
+            domicile – travail (ou du rabattement vers les transports en communs)
+            soit une distance de {{declaration.distance}} km aller, 
+            soit {{declaration.distance * 2}} km aller et retour (joindre
+            l’image proposée par un calculateur d’itinéraires option vélo).
+            </p>
+        <p>
+        Cette attestation servira de base au calcul du montant des indemnités
+        kilométriques vélo qui me sera versée. <br>
+        J’ai bien noté que le montant de l’indemnité
+        est plafonné à {{declaration.prime}} EUROS net par an.<br>
+        J’ai bien noté qu’au-delà du montant défini
+        par les lois de finance, l’indemnité versée aux salariés circulant à vélo est soumise
+        aux charges sociales et fiscales de droit commun.
+        </p>
+        <p>
+        Je m’engage à enregistrer à la fin de chaque mois ou au plus tard le 10 du mois
+        suivant, le formulaire type de mes trajets réalisés en vélo (formulaire ikVélo)
+        </p>
+        <p>
+        Fait pour servir et valoir ce que de droit.
+        </p>
+        Fait à Brest le {{declaration.created|date('d/m/Y')}}
+    </div>
+
+    
+{% endblock %}

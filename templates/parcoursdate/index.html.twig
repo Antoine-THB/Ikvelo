@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Parcoursdates list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Jourlabel</th>
+                <th>Journum</th>
+                <th>Utilisationvelo</th>
+                <th>Commentaire</th>
+                <th>Nbkmeffectue</th>
+                <th>Indemnisation</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parcoursDate in parcoursDates %}
+            <tr>
+                <td><a href="{{ path('parcoursdate_show', { 'id': parcoursDate.id }) }}">{{ parcoursDate.id }}</a></td>
+                <td>{{ parcoursDate.jourLabel }}</td>
+                <td>{{ parcoursDate.jourNum }}</td>
+                <td>{{ parcoursDate.utilisationVelo }}</td>
+                <td>{{ parcoursDate.commentaire }}</td>
+                <td>{{ parcoursDate.nbKmEffectue }}</td>
+                <td>{{ parcoursDate.indemnisation }}</td>
+                <td>{% if parcoursDate.created %}{{ parcoursDate.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if parcoursDate.updated %}{{ parcoursDate.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('parcoursdate_show', { 'id': parcoursDate.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('parcoursdate_edit', { 'id': parcoursDate.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('parcoursdate_new') }}">Create a new parcoursDate</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Parcoursdate</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ parcoursDate.id }}</td>
+            </tr>
+            <tr>
+                <th>Jourlabel</th>
+                <td>{{ parcoursDate.jourLabel }}</td>
+            </tr>
+            <tr>
+                <th>Journum</th>
+                <td>{{ parcoursDate.jourNum }}</td>
+            </tr>
+            <tr>
+                <th>Utilisationvelo</th>
+                <td>{{ parcoursDate.utilisationVelo }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ parcoursDate.commentaire }}</td>
+            </tr>
+            <tr>
+                <th>Nbkmeffectue</th>
+                <td>{{ parcoursDate.nbKmEffectue }}</td>
+            </tr>
+            <tr>
+                <th>Indemnisation</th>
+                <td>{{ parcoursDate.indemnisation }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if parcoursDate.created %}{{ parcoursDate.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if parcoursDate.updated %}{{ parcoursDate.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('parcoursdate_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('parcoursdate_edit', { 'id': parcoursDate.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
