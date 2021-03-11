@@ -12,7 +12,7 @@ use App\Form\MoisType;
 /**
  * Mois controller.
  *
- * @Route("mois")
+ * @Route("admin/mois")
  */
 class MoisController extends AbstractController
 {

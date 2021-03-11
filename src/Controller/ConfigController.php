@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Config controller.
  *
- * @Route("config")
+ * @Route("admin/config")
  */
 class ConfigController extends AbstractController
 {

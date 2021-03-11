@@ -8,6 +8,12 @@ use App\Libs\StatClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Config controller.
+ *
+ * @Route("admin/default")
+ */
+
 class DefaultController extends AbstractController
 {
     /*

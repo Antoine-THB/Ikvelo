@@ -47,3 +47,12 @@ Erreur :
     - Modification du mois_deb en moisrefInt dans Parcours Repository ligne 502
 
 
+Fait : 
+
+    -mise en page
+    -Répertoires
+    
+A faire :
+    - Prendre le fichier Parcours et le mettre ds src/Libs et remplacer le namespace ==> namespace App\Libs;
+    - Demander pour le front ikvelo/ si avec le fichier parcours ne fct pas 
+    - Demander ce qu'il veut 

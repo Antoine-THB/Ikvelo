@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Role controller.
  *
- * @Route("role")
+ * @Route("admin/role")
  * @Security("is_granted('ROLE_SUP_ADMIN')")
  */
 class RoleController extends AbstractController

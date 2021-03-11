@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Parcoursdate controller.
  *
- * @Route("parcoursdate")
+ * @Route("admin/parcoursdate")
  */
 class ParcoursDateController extends AbstractController
 {

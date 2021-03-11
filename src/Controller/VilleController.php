@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Ville controller.
  *
- * @Route("ville")
+ * @Route("admin/ville")
  */
 class VilleController extends AbstractController
 {

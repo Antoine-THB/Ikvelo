@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Config controller.
  *
- * @Route("/declaration")
+ * @Route("admin/declaration")
  */
 class DeclarationHonneurController extends AbstractController
 {

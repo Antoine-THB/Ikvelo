@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Typetrajet controller.
  *
- * @Route("typetrajet")
+ * @Route("admin/typetrajet")
  */
 class TypeTrajetController extends AbstractController
 {

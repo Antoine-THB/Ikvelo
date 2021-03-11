@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Salarie controller.
  *
- * @Route("salarie")
+ * @Route("admin/salarie")
  */
 class SalarieController extends AbstractController
 {

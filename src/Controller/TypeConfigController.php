@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * TypeConfig controller.
  *
- * @Route("typeconfig")
+ * @Route("admin/typeconfig")
  */
 class TypeConfigController extends AbstractController
 {

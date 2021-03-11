@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Service controller.
  *
- * @Route("service")
+ * @Route("admin/service")
  */
 class ServiceController extends AbstractController
 {

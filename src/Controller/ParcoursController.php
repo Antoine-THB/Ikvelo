@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Parcour controller.
  *
- * @Route("parcours")
+ * @Route("admin/parcours")
  */
 class ParcoursController extends AbstractController
 {
