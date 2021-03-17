@@ -1,10 +1,12 @@
 <?php
 namespace App\Libs;
 
+use App\Entity\Service;
 use App\Entity\Salarie;
 use App\Entity\DeclarationHonneur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -66,7 +68,17 @@ class Tools extends Controller {
         
         return $salarie;
     }
-    
+
+    /**
+     * Récupère tous les services
+     */
+    public function getServices()
+    {
+ 
+        $services = $this->em->getRepository(Service::class)->findAll();
+        
+        return $services;
+    }
     /**
      * Ramene une declaration sur l'honneur active pour le salarie.
      */

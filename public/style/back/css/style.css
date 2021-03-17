@@ -42,6 +42,7 @@ border-bottom: 1px solid #714f6c;
     background-color: #E40613;
     color: #fff;
     margin-top: 20px;
+
 }
 
 #footer #copyright {
@@ -193,4 +194,8 @@ section.recherche {
 #entete #adresse {
     float: right;
     padding: 15px;
+}
+
+#salarie_gestion a{
+    text-decoration : none;
 }

@@ -1,0 +1,46 @@
+{% extends 'baseGestion.html.twig' %}
+
+{% block body %}
+    <h1>Gestion des salariés</h1>
+    
+
+    <table  class="table">
+        <thead>
+            <tr>
+                <th>Identité</th>
+                <th>Actif</th>
+            </tr>
+        </thead>
+
+        <tbody id="salarie_gestion">
+        {% for salarie in salaries %}
+            
+            <tr>
+
+                <td>
+                    <a href="{{ path('salarie_show_gestion', { 'id': salarie.id }) }}">{{ salarie.nom }}&nbsp;{{ salarie.prenom }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('salarie_click_gestion', { 'id': salarie.id }) }}" class="js-click"> 
+                            {% if salarie.actif == '1' %}
+                                <i class="fas fa-check-square"></i>
+                            {% else %}
+                                <i class="far fa-check-square"></i>
+                            {% endif %}                        
+                    </a>
+                </td>
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+
+    </table>
+    <p>Pour visualiser un salarié en détail, cliquez sur son nom.</p>
+    <br>
+    <ul>
+        <li>
+            <a href="{{ path('salarie_new_gestion') }}">Nouveau salarié</a>
+        </li>
+    </ul>
+{% endblock %}

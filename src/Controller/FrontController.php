@@ -15,6 +15,7 @@ use App\Form\ParcoursDateFrontType;
 use App\Form\SalarieFrontType;
 use App\Form\RechercheVilleType;
 use App\Libs\Tools;
+use App\Repository\SalarieRepository;
 use Isen\BackOfficeBundle\Libs\Tools as LibsTools;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,6 +94,7 @@ class FrontController extends AbstractController
         // }
 
         $salarie = $em->getRepository(Salarie::class)->find(1);
+
 
         /*
         //récupération du salarié

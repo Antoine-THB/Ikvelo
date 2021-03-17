@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('style/favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('style/back/css/knacss.css') }}">
+        <link rel="stylesheet" href="{{ asset('style/back/css/style.css') }}">
+        <script src="https://kit.fontawesome.com/53ac84aade.js" crossorigin="anonymous"></script>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        
+        {% include('enteteGestion.html.twig') %}
+        <div id="corps">
+            {% block body %}{% endblock %}
+            {% block javascripts %}{% endblock %}
+        </div>
+        {% include('footer.html.twig') %}
+        <script src="{{ asset('style/back/js/Gestion.js') }}"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </body>
+</html>

@@ -3,25 +3,24 @@
 namespace App\Form;
 
 use App\Entity\Parcours;
+use App\Entity\Salarie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Libs\Tools;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ParcoursSearchType extends AbstractType
+class BilanGestionType extends AbstractType
 {
- 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //recuperation de la liste des annees sous forme de tableau
         $outil = new Tools;
         $tabAn = $outil->get3AnneeOld(); 
         
-        //mois en cours
-        $madate = new \DateTime();
-        $cemois = $madate->format('n');
-        
+        //liste des services
+        // $services = $outil->getServices();
+
         $builder
                 ->add('annee', ChoiceType::class, [
                     'choices'  => [
@@ -31,25 +30,28 @@ class ParcoursSearchType extends AbstractType
                         ],
                     'data'      => $tabAn[0],//pre-selection de l'année en cours
                 ])
-                
+
                 ->add('idMois',null,array(
                     'label'     => 'Mois',
-                    'placeholder' => 'Tous',
+                    // 'placeholder' => 'Tous',
                     'required' => false,
-                    //'data'      => $cemois
-                    ))
-                
-                ;
+                ))
+                ->add('idService')
+                ->add('idEntreprise')
+                // ->add('salarie')
+                // ->add('idservice',null,array(
+                //     'label'     => 'Service',
+                //     'choices' => $services,
+                //     'required' => false
+                // ))
+        ;
     }
-    
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Parcours::class,
-        ));
+            'data_class' => Salarie::class,
+        ]);
     }
-
-
-
 }

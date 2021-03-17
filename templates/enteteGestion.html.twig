@@ -1,0 +1,24 @@
+<div id="entete">
+    <div id="logo">
+        {% if app.environment == 'dev' %}
+            <img src="{{ asset('style/back/images/Yncrea_BM_ISEN-Brest_horizontal.jpg') }}" alt="CSE Yncrea" style="width:200px;">
+        {% else %}
+            <img src="{{ asset('style/back/images/Yncrea_BM_ISEN-Brest_horizontal.jpg') }}" alt="CSE Yncrea" style="width:200px;">
+        {% endif %}
+    </div>
+    <div id="menu">
+        
+        <div class="item"><a href="{{ path('gestion') }}">Accueil</a></div>
+        <div class="item"><a href="{{ path('salarie_gestion_index') }}">Salariés</a></div>
+        <div class="item"><a href="{{ path('gestion_bilan_index') }}">Gestion</a></div>
+        <div class="item"><a href="{{ path('gestion_validation_index') }}">Validation</a></div>
+        <div class="item"><a href="{{ path('gestion_stats_index') }}">Statistique</a></div>
+
+                
+
+        
+        
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>

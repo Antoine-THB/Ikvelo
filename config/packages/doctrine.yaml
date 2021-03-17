@@ -7,6 +7,11 @@ doctrine:
         #server_version: '5.7'
     orm:
         auto_generate_proxy_classes: true
+
+        # entity_managers:
+        dql:
+            string_functions:
+                IF: DoctrineExtensions\Query\Mysql\IfElse
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
@@ -16,3 +21,6 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+
+            
+                

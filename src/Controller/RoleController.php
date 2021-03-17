@@ -27,7 +27,7 @@ class RoleController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $roles = $em->getRepository('IsenBackOfficeBundle:Role')->findAll();
+        $roles = $em->getRepository(Role::class)->findAll();
 
         return $this->render('templates\role\index.html.twig', array(
             'roles' => $roles,

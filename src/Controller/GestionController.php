@@ -8,12 +8,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Gestion controller.
  *
- * @Route("admin")
+ * @Route("gestion")
  */
 class GestionController extends AbstractController
 {
     /**
-     * @Route("/gestion", name="gestion")
+     * @Route("/", name="gestion")
      */
     public function index()
     {

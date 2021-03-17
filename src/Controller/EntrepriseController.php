@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Entreprise;
+use App\Form\EntrepriseType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,7 +40,7 @@ class EntrepriseController extends AbstractController
     public function newAction(Request $request)
     {
         $entreprise = new Entreprise();
-        $form = $this->createForm(Entreprise::class, $entreprise);
+        $form = $this->createForm(EntrepriseType::class, $entreprise);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,7 +82,7 @@ class EntrepriseController extends AbstractController
     public function editAction(Request $request, Entreprise $entreprise)
     {
         $deleteForm = $this->createDeleteForm($entreprise);
-        $editForm = $this->createForm(Entreprise::class, $entreprise);
+        $editForm = $this->createForm(EntrepriseType::class, $entreprise);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

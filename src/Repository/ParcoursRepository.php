@@ -1,7 +1,9 @@
 <?php
 namespace App\Repository;
 
+use App\Entity\ParcoursDate;
 use Doctrine\ORM\EntityRepository;
+use App\Repository\ParcoursDateRepository;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -644,7 +646,7 @@ class ParcoursRepository extends EntityRepository {
     public function findParcoursDateMois($an,$idMois,$nbResult)
     {
         $requete =  $this->createQueryBuilder('p')
-                        ->leftJoin('IsenBackOfficeBundle:ParcoursDate', 'pd', 'WITH', 'pd.idParcours = p.id')
+                        ->leftJoin(ParcoursDate::class, 'pd', 'WITH', 'pd.idParcours = p.id')
                         //->leftJoin('pd.id', 'pd')
                         ->addSelect('SUM(pd.nbKmEffectue) as nbKmEffectue')
                         ->addSelect('SUM(pd.indemnisation) as totIndemnisation')

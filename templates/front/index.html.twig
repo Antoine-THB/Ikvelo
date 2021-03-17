@@ -1,16 +1,18 @@
-{% extends 'FrontOffice/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <div id="body">
-        <h1>Bienvenue {{ user.prenom }}&nbsp;{{ user.nom }}</h1>
+        {# <h1>Bienvenue {{ user.prenom }}&nbsp;{{ user.nom }}</h1> #}
+        <h1>Bienvenue Monsieur&nbsp;NOM</h1>
+
     </div>
     <div class="alert--info message-stat">
         Vos statistisques pour {{an}} <br>
-        Vous avez parcouru : {{parcoursNbKm}} km et vous avez eu {{parcoursIndemnisation}} € d'indemnisation.<br>
-        Il vous reste {{montantRestant}} € d'indemnisation disponible pour cette année ({{an}}).
+        Vous avez parcouru : 1567 km et vous avez eu 600 € d'indemnisation.<br>
+        Il vous reste 0 € d'indemnisation disponible pour cette année ({{an}}).
     </div>
     <div class="grid-2 .has-gutter">
-        <div class="format-grid-1">
+        {# <div class="format-grid-1">
             {{ include('FrontOffice/default/parcoursStatList.html.twig', {parcours: parcoursNC, title: 'non closes', an: an}) }}
         </div> 
         <div class="format-grid-1">
@@ -20,11 +22,11 @@
             
             {{ include('FrontOffice/default/parcoursStatList.html.twig', {parcours: parcoursNV, title: 'non validées', an: an}) }}
             {{ include('FrontOffice/default/statToutAnnee.html.twig', {tabStatAn: tabStatAn, title: 'Remboursements pour toutes les années', moisRef: moisRef}) }}
-        </div> 
-        <div class="format-grid-1">
+        </div>  #}
+        {# <div class="format-grid-1">
             
             {{ include('FrontOffice/default/statAnnee.html.twig', {tabStat: tabStat, title: 'Statistiques pour l\'année en cours'}) }}
-        </div> 
+        </div>  #}
 
     </div>
 {% endblock %}
