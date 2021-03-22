@@ -43,13 +43,13 @@
                
                 <td>{% if parcour.cloture %}Oui{% else %}Non{% endif %}</td>
                 <td>
-                    <a href="{{ path('gestion_validation_Trajet', { 'id': parcour.id }) }}" class="js-click"> 
-                            {% if parcour.validation == 'Oui' %}
-                                <i class="fas fa-check-square"></i>
-                            {% else %}
-                                <i class="far fa-check-square"></i>
-                            {% endif %}                        
-                    </a>
+                    {% if parcour.validation == 'Oui' %}
+                            <i class="fas fa-check-square"></i>   
+                    {% else %}
+                        <a href="{{ path('gestion_validation_Trajet', { 'id': parcour.id }) }}" class="js-click"> 
+                            <i class="far fa-check-square"></i>
+                        </a> 
+                    {% endif %}                        
                 </td>
 
 

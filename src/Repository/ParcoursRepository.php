@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use App\Entity\Entreprise;
+use App\Entity\Mois;
 use App\Entity\Parcours;
 use App\Entity\ParcoursDate;
 use App\Entity\Salarie;
@@ -127,10 +128,10 @@ class ParcoursRepository extends EntityRepository {
         if(isset($annee)){
            
             $requete =  $this->createQueryBuilder('p')
-                        ->leftJoin('IsenBackOfficeBundle:Mois', 'm', 'WITH', 'm.id = p.idMois')
+                        ->leftJoin(Mois::class, 'm', 'WITH', 'm.id = p.idMois')
                         ->select('p.annee')   
                         //->addSelect('m.id as mois')
-                        ->addSelect('m.mois')
+                        ->addSelect('m.mois as mois')
                         ->addSelect('SUM(p.nbKmEffectue) as nbKmEffectue')
                         ->addSelect('SUM(p.indemnisation) as totIndemnisation')
                         ->where('p.annee = :an')
@@ -141,7 +142,7 @@ class ParcoursRepository extends EntityRepository {
 
         }else{
             $requete =  $this->createQueryBuilder('p')
-                        ->leftJoin('IsenBackOfficeBundle:Mois', 'm', 'WITH', 'm.id = p.idMois')
+                        ->leftJoin(Mois::class, 'm', 'WITH', 'm.id = p.idMois')
                         ->select('p.annee')   
                         //->addSelect('m.id as mois')
                         ->addSelect('m.mois')
@@ -681,7 +682,7 @@ class ParcoursRepository extends EntityRepository {
     public function findGlobal($nbResult=NULL)
     {
         $requete =  $this->createQueryBuilder('p')
-                        ->leftJoin('IsenBackOfficeBundle:ParcoursDate', 'pd', 'WITH', 'pd.idParcours = p.id')
+                        ->leftJoin(ParcoursDate::class, 'pd', 'WITH', 'pd.idParcours = p.id')
                         ->addSelect('SUM(pd.nbKmEffectue) as nbKmEffectue')
                         ->addSelect('SUM(pd.indemnisation) as totIndemnisation')
 

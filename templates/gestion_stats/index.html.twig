@@ -3,5 +3,50 @@
 {% block title %}Statistiques{% endblock %}
 
 {% block body %}
-    <h1>Statistiques</h1>
+    <h1>Statistiques pour l'année en cours</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Annee</th>
+                <th>Mois</th>                
+                <th>Nombre total Km</th>
+                <th>Indemnisation totale</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for parcour in Total_annee %}
+            <tr>                
+                <td>{{ parcour.annee }}</td>
+                <td>{{ parcour.mois}}</td>
+                <td>{{ parcour.nbKmEffectue }}&nbsp;Km</td>
+                <td>{{ parcour.totIndemnisation }}&nbsp;€</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Statistiques pour toutes les années</h1>
+    <p>en fonction du mois de cloture comptable (novembre)</p>
+
+            <table class="table">
+        <thead>
+            <tr>
+                <th>Annee</th>               
+                <th>Nombre total Km</th>
+                <th>Indemnisation totale</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for parcour in Global %}
+            <tr>                
+                <td>{{ parcour.annee }}</td>
+                <td>{{ parcour.nbKmEffectue }}&nbsp;Km</td>
+                <td>{{ parcour.totIndemnisation }}&nbsp;€</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

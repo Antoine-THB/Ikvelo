@@ -199,3 +199,10 @@ section.recherche {
 #salarie_gestion a{
     text-decoration : none;
 }
+
+.far{
+    color:red;
+}
+.fas{
+    color:green;
+}

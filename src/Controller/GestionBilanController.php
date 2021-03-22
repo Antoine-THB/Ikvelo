@@ -73,22 +73,40 @@ class GestionBilanController extends AbstractController
     {
         //Récupération de mes données avec les paramètres su formulaire
         $nbResult = null;
+        $filename = "Bilan";
         $em = $this->getDoctrine()->getManager();
         if ($varAnnee == "null") {
             $varAnnee = null;
         }
+        else {
+            $filename .= "_".$varAnnee;
+        }
         if ($varIdMois == "null") {
             $varIdMois = null;
+        }
+        else {
+            $filename .= "_".$varIdMois;
         }
         if ($varIdService == "null") {
             $varIdService = null;
         }
+        else {
+            $filename .= "_".$varIdService;
+        }
         if ($varIdEntreprise == "null") {
             $varIdEntreprise = null;
+        }
+        else {
+            $filename .= "_".$varIdEntreprise;
         }
         if ($varIdSalarie == "null") {
             $varIdSalarie = null;
         }
+        else {
+            $filename .= "_".$varIdSalarie;
+        }
+
+        $filename.=".csv";
         
         $parcours = $em->getRepository(Parcours::class)->findParcours($varAnnee,$varIdMois,$nbResult, $varIdService, $varIdEntreprise, $varIdSalarie);
         //création d'une réponse
@@ -113,7 +131,7 @@ class GestionBilanController extends AbstractController
             }
         );
         $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition', 'attachment; filename="export.csv"');
+        $response->headers->set('Content-Disposition', 'attachment; filename='.$filename);
 
         return $response;
     }
