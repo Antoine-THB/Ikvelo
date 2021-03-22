@@ -298,5 +298,11 @@ class Parcours
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->annee;
+    }
+
+
 
 }

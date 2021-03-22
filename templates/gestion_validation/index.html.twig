@@ -3,6 +3,16 @@
 {% block title %}Validation des Trajets{% endblock %}
 
 {% block body %}
+
+    {{ form_start(form) }}
+    <section class="grid-2 .has-gutter recherche">
+        {{ form_widget(form) }}
+        <div>
+        <input type="submit" value="Rechercher" />
+        </div>
+    </section>
+    {{ form_end(form) }}
+    
     <h1>Validation des trajets</h1>
 
         <table class="table">

@@ -2,12 +2,16 @@
 
 namespace App\Form;
 
+use App\Entity\Entreprise;
+use App\Entity\Mois;
 use App\Entity\Parcours;
 use App\Entity\Salarie;
+use App\Entity\Service;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Libs\Tools;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class BilanGestionType extends AbstractType
@@ -28,30 +32,40 @@ class BilanGestionType extends AbstractType
                         $tabAn[1] => $tabAn[1],
                         $tabAn[2] => $tabAn[2],
                         ],
-                    'data'      => $tabAn[0],//pre-selection de l'année en cours
+                    'placeholder'=>'Tous',
+                    'required' => false,
                 ])
 
-                ->add('idMois',null,array(
-                    'label'     => 'Mois',
-                    // 'placeholder' => 'Tous',
+                ->add('idMois', EntityType::class, [
+                    'class' => Mois::class,
+                    'label' => 'Mois',
+                    'placeholder' => 'Tous',
                     'required' => false,
-                ))
-                ->add('idService')
-                ->add('idEntreprise')
-                // ->add('salarie')
-                // ->add('idservice',null,array(
-                //     'label'     => 'Service',
-                //     'choices' => $services,
-                //     'required' => false
-                // ))
+                ])
+                ->add('idService', EntityType::class, [
+                    'class' => Service::class,
+                    'label' => 'Service',
+                    'placeholder' => 'Tous',
+                    'required' => false,
+                ])
+                ->add('idEntreprise', EntityType::class, [
+                    'class' => Entreprise::class,
+                    'label' => 'Entreprise',
+                    'placeholder' => 'Tous',
+                    'required' => false,
+                ])
+                ->add('idSalarie', EntityType::class, [
+                    'class' => Salarie::class,
+                    'label' => 'Salarie',
+                    'placeholder' => 'Tous',
+                    'required' => false,
+                ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Parcours::class,
-            'data_class' => Salarie::class,
         ]);
     }
 }

@@ -1,7 +1,11 @@
 <?php
 namespace App\Repository;
 
+use App\Entity\Entreprise;
+use App\Entity\Parcours;
 use App\Entity\ParcoursDate;
+use App\Entity\Salarie;
+use App\Entity\Service;
 use Doctrine\ORM\EntityRepository;
 use App\Repository\ParcoursDateRepository;
 /*
@@ -705,7 +709,7 @@ class ParcoursRepository extends EntityRepository {
                         ->setParameter('an', $an)
                         ->groupBy('p.id')
                         ;
-        
+                        
         if(!is_null($idMois)){
             $requete           
             ->andWhere('p.idMois = :idMois')                            
@@ -744,4 +748,93 @@ class ParcoursRepository extends EntityRepository {
         return $requete->getQuery()->execute();
         
     }
+
+    public function findParcours($varAnnee,$varIdMois,$nbResult, $varIdService, $varIdEntreprise, $varIdSalarie)
+    {
+        $requete = $this
+            ->createQueryBuilder('p')
+            ->leftJoin(Salarie::class, 'salarie', 'WITH', 'salarie.id = p.idSalarie')
+            ->leftJoin(Service::class, 'service', 'WITH', 'service.id = salarie.idService')
+            ->leftJoin(Entreprise::class, 'entreprise', 'WITH', 'entreprise.id = salarie.idEntreprise')
+            ->where('p.validation = 1')
+
+            
+            ->groupBy('p.id')
+            ;
+
+            if(!is_null($varAnnee)){
+                $requete           
+                ->andWhere('p.annee = :an')                            
+                ->setParameter('an', $varAnnee) 
+                ->orderBy('p.annee')
+                ;
+            }
+
+            if(!is_null($varIdMois)){
+                $requete           
+                ->andWhere('p.idMois = :idMois')                            
+                ->setParameter('idMois', $varIdMois)            
+                ;
+            }
+
+            if(!is_null($varIdService)){
+                $requete           
+                ->andWhere('salarie.idService = :idService')                            
+                ->setParameter('idService', $varIdService)            
+                ;
+            }
+
+
+            if(!is_null($varIdSalarie)){
+                $requete           
+                ->andWhere('salarie.id = :idSalarie')                            
+                ->setParameter('idSalarie', $varIdSalarie)            
+                ;
+            }
+
+            if(!is_null($varIdEntreprise)){
+                $requete           
+                ->andWhere('entreprise.id = :idEntreprise')                            
+                ->setParameter('idEntreprise', $varIdEntreprise)            
+                ;
+            }
+
+            if(!is_null($nbResult)){
+                $requete           
+                ->setMaxResults($nbResult)            
+                ;
+            }
+            $requete ->orderBy('p.annee DESC, p.idMois, p.idSalarie');
+            return $requete->getQuery()->execute();
+    }
+
+
+    public function findWithNbAndValidation($nbResult, $varValidation)
+    {
+        $requete =  $this->createQueryBuilder('p')
+                        ->orderBy('p.annee','DESC')
+                        ->orderBy('p.idMois, p.idSalarie')
+                        ;
+        
+        if(!is_null($nbResult)){
+            $requete           
+            ->setMaxResults($nbResult)            
+            ;
+        }
+
+        if($varValidation === "Validé"){
+            $requete
+            ->andWhere('p.validation =  1')
+            ;         
+        }
+        if($varValidation === "Non validé"){
+            $requete
+            ->andWhere('p.validation =  0')
+            ;         
+        }
+        
+        return $requete->getQuery()->execute();
+        
+    }
 }
+

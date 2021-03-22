@@ -16,7 +16,25 @@
     {{ form_end(form) }}
         <br>
     <div>
-        <span> <b>A modifier</b> Téléchargez le bilan au format CSV.</span>
+        <span><a 
+        {% if varAnnee is empty %}
+           {% set varAnnee = "null"%};
+        {% endif %}
+        {% if varIdMois is empty %}
+           {% set varIdMois = "null"%};
+        {% endif %}
+        {% if varIdService is empty %}
+           {% set varIdService = "null"%};
+        {% endif %}
+        {% if varIdEntreprise is empty %}
+           {% set varIdEntreprise = "null"%};
+        {% endif %}
+        {% if varIdSalarie is empty %}
+           {% set varIdSalarie = "null"%};
+        {% endif %}
+        href=" {{ path('bilan_csv', { varAnnee: varAnnee, varIdMois: varIdMois, varIdService: varIdService, varIdEntreprise: varIdEntreprise, varIdSalarie: varIdSalarie } ) }} "
+        
+        > Téléchargez le bilan au format CSV.</a></span>
     </div>
 
     <table class="table">
@@ -25,6 +43,8 @@
                 <th>Année</th>
                 <th>Mois</th>
                 <th>Salarié</th>
+                <th>Service</th>
+                <th>Entreprise</th>
                 <th>Nb km</th>
                 <th>Indemnisation</th>
                 
@@ -36,7 +56,9 @@
 
                 <td>{{ parcour.annee }}</td>
                 <td>{{ parcour.idMois }}</td>
-                <td>{{ parcour.idSalarie }}</td>
+                <td>{{ parcour.idSalarie}}</td>
+                <td>{{ parcour.idSalarie.idService}}</td>
+                <td>{{ parcour.idSalarie.idEntreprise}}</td>
                 <td>{{ parcour.nbKmEffectue }}&nbsp;km</td>
                 <td>{{ parcour.indemnisation }}&nbsp;€</td>
 

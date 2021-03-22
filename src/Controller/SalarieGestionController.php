@@ -26,12 +26,9 @@ class SalarieGestionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $salaries = $em->getRepository(Salarie::class)->findAll();
-        $Form = $this->createForm(SalarieGestionType::class);
-        $Form->handleRequest($request);
 
         return $this->render('salarie_gestion/index.html.twig', array(
             'salaries'  => $salaries,
-            'form' => $Form->createView(),
 
         ));
     }
