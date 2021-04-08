@@ -1,4 +1,4 @@
-{% extends 'FrontOffice/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <h1>Demande</h1>
@@ -57,21 +57,21 @@
     </div>
             
     <div >
-        {{ include('FrontOffice/default/depJourList.html.twig', {depJours: parcourJours, mois: parcour.idmois, impression: 'non', cloture:parcour.cloture }) }}
+        {{ include('front/depJourList.html.twig', {depJours: parcourJours, mois: parcour.idmois, impression: 'non', cloture:parcour.cloture }) }}
     </div>
 </section>
     
     <ul>
         {% if not parcour.cloture %}
         <li>
-            <a href="{{ path('isen_front_new_dep_jour', { 'id': parcour.id }) }}">Nouveau déplacement</a>
+            <a href="{{ path('front_new_dep_jour', { 'id': parcour.id }) }}">Nouveau déplacement</a>
         </li> 
         <li>
-            <a href="{{ path('isen_front_clot_dep_jour', { 'id': parcour.id }) }}">Cloture du déplacement</a>
+            <a href="{{ path('front_clot_dep_jour', { 'id': parcour.id }) }}">Cloture du déplacement</a>
         </li> 
         {% endif %}
         <li>
-            <a href="javascript:ouvre_popup('{{ path('isen_front_mensuel_print', { 'id': parcour.id }) }}')" >Impression</a>
+            <a href="javascript:ouvre_popup('{{ path('front_mensuel_print', { 'id': parcour.id }) }}')" >Impression</a>
         </li> 
     </ul>
     

@@ -28,12 +28,6 @@ class Parcours
      */
     private $annee;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="velo_uniq", type="boolean", nullable=false, options={"comment"="utilisation du velo uniquement (oui/non)"})
-     */
-    private $veloUniq = '0';
 
     /**
      * @var string|null
@@ -125,6 +119,16 @@ class Parcours
      */
     private $idSalarie;
 
+     /**
+     * @var \TypeTrajet
+     *
+     * @ORM\ManyToOne(targetEntity="TypeTrajet")
+     * @ORM\JoinColumns({
+     *    @ORM\JoinColumn(name="id_type_trajet", referencedColumnName="id")
+     * })
+     */
+    private $idTypeTrajet;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,18 +142,6 @@ class Parcours
     public function setAnnee(int $annee): self
     {
         $this->annee = $annee;
-
-        return $this;
-    }
-
-    public function getVeloUniq(): ?bool
-    {
-        return $this->veloUniq;
-    }
-
-    public function setVeloUniq(bool $veloUniq): self
-    {
-        $this->veloUniq = $veloUniq;
 
         return $this;
     }
@@ -301,6 +293,18 @@ class Parcours
     public function __toString()
     {
         return $this->annee;
+    }
+
+    public function getIdTypeTrajet(): ?int
+    {
+        return $this->idTypeTrajet;
+    }
+
+    public function setIdTypeTrajet(?int $idTypeTrajet): self
+    {
+        $this->idTypeTrajet = $idTypeTrajet;
+
+        return $this;
     }
 
 

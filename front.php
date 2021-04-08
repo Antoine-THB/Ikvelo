@@ -2,28 +2,25 @@
 
 namespace App\Controller;
 
-use App\Libs\CalculIndemClass as LibsCalculIndemClass;
-use App\Libs\StatClass as LibsStatClass;
-use App\Entity\Parcours;
-use App\Entity\ParcoursDate;
-use App\Entity\Salarie;
 use App\Entity\DeclarationHonneur;
+use App\Entity\Salarie;
+use App\Entity\Parcours;
+use App\Libs\CalculIndemClass;
+use App\Libs\StatClass;
 use App\Entity\Config;
 use App\Entity\Mois;
-use App\Form\ParcoursDateFrontType;
 use App\Form\ParcoursFrontType;
-use App\Form\RechercheVilleType;
+use App\Entity\ParcoursDate;
+use App\Form\ParcoursDateFrontType;
 use App\Form\SalarieFrontType;
+use App\Form\RechercheVilleType;
 use App\Libs\Tools;
-use App\Repository\ParcoursDateRepository;
-use App\Repository\ParcoursRepository;
-use Symfony\Component\HttpFoundation\Request;
+use App\Repository\SalarieRepository;
+use Isen\BackOfficeBundle\Libs\Tools as LibsTools;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Front controller.
- */
 class FrontController extends AbstractController
 {
     /*
@@ -55,24 +52,24 @@ class FrontController extends AbstractController
         
         //if(ev)
         //var_dump(is_null($declaration));
-        
+        /*
         if(is_null($declaration)){
              //$this->redirectToRoute('isen_front_profil');
             //var_dump($declaration);
-            return $this->render('front/profil.html.twig',array(
+            return $this->render('FrontOffice/default/profil.html.twig',array(
             'salarie'       =>$salarie,
             'declaration'   => $declaration,
                 ));
         }else{
             return 'OK';
         }
-        
+        */
         //$tabUser = [$user,$salarie,$declaration];
         
         return $declaration;
         
     }
-
+    
     /**
      * @Route("/", name="front_index")
      * 
@@ -80,9 +77,9 @@ class FrontController extends AbstractController
     public function indexAction()
     {
         //recupération du user loggé
-        $user = $this->getUser();
+        // $user = $this->getUser();
         
-        // $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         // //var_dump($user);
         
         // if($user->getUsername() == 'admin')
@@ -95,8 +92,11 @@ class FrontController extends AbstractController
         //                 ->find(2);
         //     $user->setId(2);
         // }
-        
-        
+
+        $salarie = $em->getRepository(Salarie::class)->find(1);
+
+
+        /*
         //récupération du salarié
         $salarie = $user->getSalarie();
         
@@ -105,12 +105,12 @@ class FrontController extends AbstractController
         if(is_null($declaration)){
              //$this->redirectToRoute('isen_front_profil');
             //var_dump($declaration);
-            return $this->render('front/profil.html.twig',array(
+            return $this->render('FrontOffice/default/profil.html.twig',array(
             'salarie'       =>$salarie,
             'declaration'   => $declaration,
                 ));
         }
-        
+        */
         
         
         //recuperation de l'année en cours
@@ -120,52 +120,52 @@ class FrontController extends AbstractController
         //récupération des stats pour l'année en cours
         $em = $this->getDoctrine()->getManager();
         //liste des parcours non clots
-        $parcoursNC = $em->getRepository(Parcours::class)->listParcoursUserNonClotAn($user->getId(),$an);
+        //$parcoursNC = $em->getRepository(Parcours::class)->listParcoursUserNonClotAn($user->getId(),$an);
         
         //liste des parcours non validés
-        $parcoursNV = $em->getRepository(Parcours::class)->listParcoursUserNonValidAn($user->getId(),$an);
+        //$parcoursNV = $em->getRepository(Parcours::class)->listParcoursUserNonValidAn($user->getId(),$an);
         
         //liste des parcours validés
-        $parcoursV = $em->getRepository(Parcours::class)->listParcoursUserValidAn($user->getId(),$an);
+        //$parcoursV = $em->getRepository(Parcours::class)->listParcoursUserValidAn($user->getId(),$an);
         
         //récupération des statistiques pour l'année en cours
-        $objStat = new LibsStatClass($em);
-        $tabStat = $objStat->genereStatParcoursPourAnSal($an,$user->getId());
+        $objStat = new StatClass($em);
+        //$tabStat = $objStat->genereStatParcoursPourAnSal($an,$user->getId());
         //création des tableau pour l'affichage dans chartjs
         $tabMois    = array();
         $tabKm      = array(0,0,0,0,0,0,0,0,0,0,0,0);
         $tabIndem   = array(0,0,0,0,0,0,0,0,0,0,0,0);
  
-        foreach ($tabStat as $tabUniq) {
-            //$listMois .= ",".$tabUniq['mois'];
-            $tabMois[]    = $tabUniq['mois'];
-            $tabKm[$tabUniq['moisid']-1]      = $tabUniq['nbKmEffectue'];
-            $tabIndem[$tabUniq['moisid']-1]   = $tabUniq['totIndemnisation'];
+        // foreach ($tabStat as $tabUniq) {
+        //     //$listMois .= ",".$tabUniq['mois'];
+        //     $tabMois[]    = $tabUniq['mois'];
+        //     $tabKm[$tabUniq['moisid']-1]      = $tabUniq['nbKmEffectue'];
+        //     $tabIndem[$tabUniq['moisid']-1]   = $tabUniq['totIndemnisation'];
 
-        }
+        // }
         //$listMois = implode(",",$tabMois);
         $listMois   = implode(",",$tabMois);
         $listKm     = implode(",",$tabKm);
         $listIndem  = implode(",",$tabIndem);
         
         //récupération des stat moyennes
-        $tabMoyStat = $objStat->genereStatMoySal($user->getId());
+        // $tabMoyStat = $objStat->genereStatMoySal($user->getId());
 
         $tabMoyKm      = array(0,0,0,0,0,0,0,0,0,0,0,0);
         $tabMoyIndem   = array(0,0,0,0,0,0,0,0,0,0,0,0);
 
-        foreach ($tabMoyStat as $tabMoyUniq) {
+        // foreach ($tabMoyStat as $tabMoyUniq) {
 
-            $tabMoyKm[$tabMoyUniq['moisid']-1]      = $tabMoyUniq['moyNbKmEffectue'];
-            $tabMoyIndem[$tabMoyUniq['moisid']-1]   = $tabMoyUniq['moyIndemnisation'];
+        //     $tabMoyKm[$tabMoyUniq['moisid']-1]      = $tabMoyUniq['moyNbKmEffectue'];
+        //     $tabMoyIndem[$tabMoyUniq['moisid']-1]   = $tabMoyUniq['moyIndemnisation'];
 
-        }
+        // }
 
         $listMoyKm     = implode(",",$tabMoyKm);
         $listMoyIndem  = implode(",",$tabMoyIndem);
         
         //recuperation de la situation du salarié par rapport au plafond
-        $situationSalarie = new LibsCalculIndemClass($em,$user->getId(),$an);
+        // $situationSalarie = new CalculIndemClass($em,$user->getId(),$an);
         
         //bilan des remboursements "comptables" en fonction du mois de réference
         //recuperation  du mois de référence
@@ -175,15 +175,15 @@ class FrontController extends AbstractController
         $tabStat = $objStat->genereStatParcoursParAnSalMoisInit($salarie,$moisRefInt);
         
         return $this->render('front/index.html.twig',array(
-            'user'                      => $user,
-            'parcoursNC'                => $parcoursNC,
-            'parcoursNV'                => $parcoursNV,
-            'parcoursV'                 => $parcoursV,
+            // 'user'                      => $user,
+            // 'parcoursNC'                => $parcoursNC,
+            // 'parcoursNV'                => $parcoursNV,
+            // 'parcoursV'                 => $parcoursV,
             'an'                        => $an,
-            'parcoursNbKm'              => $situationSalarie->getParcoursNbKm(),
+            // 'parcoursNbKm'              => $situationSalarie->getParcoursNbKm(),
             //'parcoursIndemnisation'     => $parcoursIndemnisation,
-            'parcoursIndemnisation'     => $situationSalarie->getMontantIndemEnCours(),
-            'montantRestant'            => $situationSalarie->getMontantRestant(),
+            // 'parcoursIndemnisation'     => $situationSalarie->getMontantIndemEnCours(),
+            // 'montantRestant'            => $situationSalarie->getMontantRestant(),
             'tabStat'                   => $tabStat,
             'tabMois'                   => $tabMois,
             'tabKm'                     => $tabKm,
@@ -214,7 +214,7 @@ class FrontController extends AbstractController
         //$declaration = new DeclarationHonneur();
         $em = $this->getDoctrine()->getManager();
 
-
+        //$declaration = $em->getRepository('IsenBackOfficeBundle:DeclarationHonneur')->find4SalarieActif($salarie->getId());
         $declaration = $em->getRepository(DeclarationHonneur::class)
                 ->findOneBy([
                     'idSalarie' => $salarie,
@@ -227,9 +227,8 @@ class FrontController extends AbstractController
                 ));
     }
     
-    /**
-     * @Route("/deplacement/list", name="front_parcours")
-     * 
+    /*
+     * list des parcours effectués
      */
     public function parcoursListAction()
     {
@@ -265,9 +264,9 @@ class FrontController extends AbstractController
             'user'=>$user,
                 ));
     }
-
-    /**
-     * @Route("/mensuel/new", name="front_new_mensuel")
+    
+        /**
+     * @Route("/mensuel/new", name="front_mensuelNew")
      * 
      */
     public function mensuelNewAction(Request $request)
@@ -307,7 +306,7 @@ class FrontController extends AbstractController
         $em = $this->getDoctrine()->getManager();
                      
         //recuperation de la situation du salarié par rapport au plafond
-        $situationSalarie = new LibsCalculIndemClass($em,$user->getId(),$cetteAnnee);
+        $situationSalarie = new CalculIndemClass($em,$user->getId(),$cetteAnnee);
         
         //message dans description du trajet
         $parcour->setDescriptTrajet('Domicile - travail');
@@ -331,7 +330,7 @@ class FrontController extends AbstractController
             $mois = $monparcours->getIdMois()->getId();
             
             //verification que le mois n'est pas deja utilisé
-            $parcoursAnMois = $em->getRepository(ParcoursRepository::class)->listParcoursUserAnMois($mois, $an, $user->getId()); 
+            $parcoursAnMois = $em->getRepository(Parcours::class)->listParcoursUserAnMois($mois, $an, $user->getId()); 
             $nbOccurence = count($parcoursAnMois);
             if($nbOccurence != 0){
                 $monmessage .= '!! Attention ce mois a déjà été utilisé '.$nbOccurence.' fois !!';
@@ -350,7 +349,7 @@ class FrontController extends AbstractController
             $em->persist($parcour);
             $em->flush();
 
-            return $this->redirectToRoute('front_mensuel_detail', array('id' => $parcour->getId()));
+            return $this->redirectToRoute('isen_front_mensuel_detail', array('id' => $parcour->getId()));
         }
 
         return $this->render('front/newFormMois.html.twig', array(
@@ -362,9 +361,8 @@ class FrontController extends AbstractController
         
     }
     
-
     /**
-     * @Route("/mensuel/show/{id}", name="front_mensuel_detail")
+     * @Route("/mensuel/show/{id}", name="front_MensuelShow")
      * 
      */
     public function mensuelShowAction($id)
@@ -404,7 +402,7 @@ class FrontController extends AbstractController
         $annee = $parcour->getAnnee();
         
         //recuperation de la situation du salarié par rapport au plafond
-        $situationSalarie = new LibsCalculIndemClass($em,$user->getId(),$annee);
+        $situationSalarie = new CalculIndemClass($em,$user->getId(),$annee);
         
         return $this->render('front/parcoursShow.html.twig',array(
             'parcour'       => $parcour,
@@ -416,9 +414,8 @@ class FrontController extends AbstractController
     }
     
     /**
-     * cloture d'un déplacement
-     *
-     * @Route("/mensuel/clot/{id}", name="front_clot_dep_jour")
+     * @Route("/mensuel/clot/{id}", name="front_MensuelClot")
+     * 
      */
     public function mensuelClotAction($id)
     {
@@ -463,9 +460,8 @@ class FrontController extends AbstractController
     }
     
     /**
-     * fiche complete pour impression
-     *
-     * @Route("/mensuel/print/{id}", name="front_mensuel_print")
+     * @Route("/mensuel/print/{id}", name="front_MensuelPrint")
+     * 
      */
     public function mensuelPrintAction($id)
     {
@@ -494,7 +490,7 @@ class FrontController extends AbstractController
 
         $parcour = $em->getRepository(Parcours::class)->find($id);
 
-        $parcourJours = $em->getRepository(ParcoursDate::class)->findByIdParcours($id);
+        $parcourJours = $em->getRepository('IsenBackOfficeBundle:ParcoursDate')->findByIdParcours($id);
          //dump($parcourJours);
         
         return $this->render('front/parcoursPrint.html.twig',array(
@@ -507,8 +503,8 @@ class FrontController extends AbstractController
     }
     
     /**
-     * liste des parcours journaliers effectués
-     * @Route("/mensuel/jour/list", name="front_list_dep_jour")
+     * @Route("/mensuel/jour/list", name="front_JourList")
+     * 
      */
     public function jourListAction()
     {
@@ -542,8 +538,8 @@ class FrontController extends AbstractController
     }
     
     /**
-     * Nouveau parcours journaliers effectués
-     * @Route("/mensuel/jour/new/{id}", name="front_new_dep_jour")
+     * @Route("/mensuel/jour/new/{id}", name="front_JourNew")
+     * 
      */
     public function jourNewAction($id,Request $request)
     {
@@ -579,7 +575,7 @@ class FrontController extends AbstractController
         $moisLibel = $parcours->getIdMois()->getMois();
         
         //recuperation de la situation du salarié par rapport au plafond
-        $situationSalarie = new LibsCalculIndemClass($em,$user->getId(),$annee);
+        $situationSalarie = new CalculIndemClass($em,$user->getId(),$annee);
         
         //recupertaion du parametre de coef
         $config = $em->getRepository(Config::class)->findOneByLibelle('coef_km');
@@ -620,7 +616,7 @@ class FrontController extends AbstractController
             $monparcours = $form->getData();
             
             //récupére le nom du jour
-            $outil = new Tools();
+            $outil = new LibsTools();
             $parcoursDate->setJourLabel($outil->getJourName4MoisAnnee($monparcours->getJourNum(), $mois, $annee));
             
             $parcoursDate->setCreated(new \DateTime());
@@ -640,7 +636,7 @@ class FrontController extends AbstractController
             $em->flush();
             
             //recuperation des infos de nb km et indemnite pour le parcours pour mise à jour
-            $infoKmIndem = $em->getRepository(ParcoursDateRepository::class)->recupParcoursDate4Parcours($parcoursDate->getIdParcours($id)->getId());
+            $infoKmIndem = $em->getRepository(ParcoursDate::class)->recupParcoursDate4Parcours($parcoursDate->getIdParcours($id)->getId());
                         
             //mise à jour du parcours correspondant
             $parcours->setNbKmEffectue($infoKmIndem[0]['nbKmEffectue']);
@@ -649,7 +645,7 @@ class FrontController extends AbstractController
             
             $em->flush();
 
-            return $this->redirectToRoute('front_mensuel_detail', array('id' => $id));
+            return $this->redirectToRoute('isen_front_mensuel_detail', array('id' => $id));
         }
 
         return $this->render('front/newDepJour.html.twig', array(
@@ -665,8 +661,8 @@ class FrontController extends AbstractController
     }
     
     /**
-     * Edition parcours journaliers effectués
-     * @Route("/mensuel/jour/edit/{id}", name="front_edit_dep_jour")
+     * @Route("/mensuel/jour/edit/{id}", name="front_JourEdit")
+     * 
      */
     public function jourEditAction($id,Request $request)
     {
@@ -717,7 +713,7 @@ class FrontController extends AbstractController
             $monparcours = $form->getData();
             
             //récupére le nom du jour
-            $outil = new Tools();
+            $outil = new \Isen\BackOfficeBundle\Libs\Tools();
             $parcoursDate->setJourLabel($outil->getJourName4MoisAnnee($monparcours->getJourNum(), $mois, $annee));
                         
             $parcoursDate->setUpdated(new \DateTime());
@@ -729,7 +725,7 @@ class FrontController extends AbstractController
             $em->flush();
             
             //recuperation des infos de nb km et indemnite pour le parcours pour miose à jour
-            $infoKmIndem = $em->getRepository(ParcoursDateRepository::class)->recupParcoursDate4Parcours($parcoursDate->getIdParcours($id)->getId());
+            $infoKmIndem = $em->getRepository(ParcoursDate::class)->recupParcoursDate4Parcours($parcoursDate->getIdParcours($id)->getId());
 
             
             //mise à jour du parcours correspondant
@@ -740,7 +736,7 @@ class FrontController extends AbstractController
             
             $em->flush();
 
-            return $this->redirectToRoute('front_mensuel_detail', array('id' => $parcoursDate->getIdParcours($id)->getId()));
+            return $this->redirectToRoute('isen_front_mensuel_detail', array('id' => $parcoursDate->getIdParcours($id)->getId()));
         }
         
         return $this->render('front/newDepJour.html.twig', array(
@@ -756,9 +752,7 @@ class FrontController extends AbstractController
     }
     
     /**
-     * modification du profil
-     *
-     * @Route("/profil/edit", name="front_profil_edit")
+     * @Route("/profil/edit", name="front_ProfilEdit")
      * 
      */
     public function profilEditAction(Request $request)
@@ -812,7 +806,7 @@ class FrontController extends AbstractController
             $em->persist($declarationNew);
             $em->flush();
 
-            return $this->redirectToRoute('front_profil', array('id' => $salarie->getId()));
+            return $this->redirectToRoute('isen_front_profil', array('id' => $salarie->getId()));
         }
 
         return $this->render('front/salarieEdit.html.twig', array(
@@ -822,9 +816,8 @@ class FrontController extends AbstractController
     }
     
     /**
-     * recherche d'une ville
-     * @Route("/ville/search", name="front_ville_search")
-     *
+     * @Route("/ville/search", name="front_VilleSearch")
+     * 
      */
     public function villeSearchAction(Request $request)
     {
@@ -854,8 +847,8 @@ class FrontController extends AbstractController
     }
     
     /**
-     * activation d'une ville
-     * @Route("/ville/add/{id}", name="front_ville_add")
+     * @Route("/ville/add/{id}", name="front_VilleAdd")
+     * 
      */
     public function villeAddAction($id,Request $request)
     {
@@ -899,8 +892,8 @@ class FrontController extends AbstractController
     }
     
     /**
-     * visualisation d'une déclaration sur l'honneur
-     * @Route("/declaration/print/{id}", name="front_declaration_print")
+     * @Route("/declaration/print/{id}", name="front_declaration")
+     * 
      */
     public function declarationPrintAction($id)
     {
@@ -914,9 +907,8 @@ class FrontController extends AbstractController
     }
     
     /**
-     * Deletes a parcoursDate entity.
-     * @Route("/mensuel/jour/delete/{id}", name="front_del_dep_jour")
-     *     
+     * @Route("/mensuel/jour/delete/{id}", name="front_delete")
+     * 
      */
     public function deleteParcoursDateAction(Request $request, ParcoursDate $parcoursDate)
     {
@@ -931,7 +923,7 @@ class FrontController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('front_mensuel_detail',array('id' => $idParcours));
+        return $this->redirectToRoute('isen_front_mensuel_detail',array('id' => $idParcours));
     }
 
     /**
@@ -944,7 +936,7 @@ class FrontController extends AbstractController
     private function createParcoursDateDeleteForm(ParcoursDate $parcoursDate)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('front_del_dep_jour', array('id' => $parcoursDate->getId())))
+            ->setAction($this->generateUrl('isen_front_del_dep_jour', array('id' => $parcoursDate->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

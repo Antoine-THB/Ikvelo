@@ -58,16 +58,16 @@ class ParcoursFrontType extends AbstractType
                         }
                 ])
                         */
-                ->add('veloUniq',ChoiceType::class,array(
-                    'choices'   => [
-                            'Oui'   => true,
-                            'Non'   => false,
-                            ],
-                    'expanded'  => true,
-                    'multiple'  => false,
-                    'data'      => true,//pre-selection 
-                    'label'     => 'Vélo uniquement'
-                    ))
+                // ->add('veloUniq',ChoiceType::class,array(
+                //     'choices'   => [
+                //             'Oui'   => true,
+                //             'Non'   => false,
+                //             ],
+                //     'expanded'  => true,
+                //     'multiple'  => false,
+                //     'data'      => true,//pre-selection 
+                //     'label'     => 'Vélo uniquement'
+                //     ))
                 ->add('descriptTrajet',null,array('label' => 'Trajet'))
                 ->add('distanceBase',null,array('label' => 'Distance'))
                 //->add('nbKmEffectue')

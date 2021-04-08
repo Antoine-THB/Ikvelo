@@ -1,4 +1,4 @@
-{% extends 'FrontOffice/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <div id="body">
@@ -40,10 +40,10 @@
            <span class="value">{{ salarie.idService }}</span>
         </div>
         <div >
-        <a href="{{ path('isen_front_profil_edit') }}">Modification du profil</a>
+        <a href="{{ path('front_profil_edit') }}">Modification du profil</a>
         <br>
         {% if declaration %}
-        <a href="javascript:ouvre_popup('{{ path('isen_front_declaration_print', { 'id': declaration.id }) }}')" >Impression de la déclaration d'honneur</a>
+        <a href="javascript:ouvre_popup('{{ path('front_declaration_print', { 'id': declaration.id }) }}')" >Impression de la déclaration d'honneur</a>
         {% else %}
             <div class="alert--info message-stat">
                 Avant toute action, vous devez modifier votre profil et imprimer 
@@ -54,7 +54,7 @@
     </div>
     {% if declaration %}
         <div class="format-grid-1" >
-            {{ include('FrontOffice/default/declarationshow.html.twig', {declaration: declaration}) }}
+            {{ include('front/declarationshow.html.twig', {declaration: declaration}) }}
         </div>
     {% endif %}
     </div>

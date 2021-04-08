@@ -1,4 +1,4 @@
-{% extends 'FrontOffice/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <h1>Recherche de villes </h1>
@@ -27,7 +27,7 @@
                 <td>{{ ville.codePostal }}</td>
                 <td>{% if ville.actif %}Oui{% else %}Non{% endif %}</td>
                 <td>
-                    <a href="{{ path('isen_front_ville_add', { 'id': ville.id }) }}">Ajoutez cette ville</a>
+                    <a href="{{ path('front_ville_add', { 'id': ville.id }) }}">Ajoutez cette ville</a>
                 </td>
             </tr>
         {% endfor %}

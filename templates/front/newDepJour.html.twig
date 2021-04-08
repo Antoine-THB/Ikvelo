@@ -1,4 +1,4 @@
-{% extends 'FrontOffice/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <h1>{{titre}} déplacement pour le mois de  {{mois}} {{annee}}</h1>
@@ -16,7 +16,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('isen_front_mensuel_detail', { 'id': parcoursId }) }}">Retour au parcours</a>
+            <a href="{{ path('front_mensuel_detail', { 'id': parcoursId }) }}">Retour au parcours</a>
         </li>
         {% if delete_form %}
         <li>

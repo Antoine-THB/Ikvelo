@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Parcours;
+use App\Entity\TypeTrajet;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,11 +14,15 @@ class ParcoursType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {   
         $builder->add('idSalarie')
-                ->add('annee')
+                ->add('annee', null,['data'=>Date('Y')])
                 ->add('idMois')
-                ->add('veloUniq')
+               // ->add('idTypeTrajet')
+                // ,EntityType::class,[
+                //     'class'=>TypeTrajet::class,
+                //     'label'=>"Type Trajet",
+                //     ])
                 ->add('descriptTrajet')
                 ->add('distanceBase')
                 ->add('nbKmEffectue', TextType::class)

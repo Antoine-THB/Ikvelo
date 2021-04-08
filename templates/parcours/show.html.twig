@@ -14,10 +14,10 @@
                 <th>Annee - Mois</th>
                 <td>{{ parcour.annee }} - {{ parcour.idMois.mois }}</td>
             </tr>
-            <tr>
-                <th>Velo uniquement</th>
-                <td>{% if parcour.veloUniq %}Oui{% else %}Non{% endif %}</td>
-            </tr>
+            {# <tr>
+                <th>Type Trajet</th>
+                <td>{{ parcour.idTypeTrajet.libelle }}</td>
+            </tr> #}
             <tr>
                 <th>Trajet</th>
                 <td>{{ parcour.descriptTrajet }}</td>

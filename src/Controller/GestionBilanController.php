@@ -2,12 +2,20 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Entreprise;
+use App\Entity\Mois;
 use App\Entity\Parcours;
+use App\Entity\Salarie;
+use App\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\BilanGestionType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
+
+
+
 
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -19,6 +27,11 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class GestionBilanController extends AbstractController
 {
+    // private $rootDir;
+
+    // public function __construct(KernelInterface $racineKernel){
+    //     $this->rootDir = $racineKernel->getProjectDir();
+    // }
     /**
      * @Route("/", name="gestion_bilan_index")
      */
@@ -49,8 +62,23 @@ class GestionBilanController extends AbstractController
         }
         
         $em = $this->getDoctrine()->getManager();
-        //$parcours = $em->getRepository('IsenBackOfficeBundle:Parcours')->findParcoursDateMois($varAnnee,$varIdMois,$nbResult);
+        
         $parcours = $em->getRepository(Parcours::class)->findParcours($varAnnee,$varIdMois,$nbResult, $varIdService, $varIdEntreprise, $varIdSalarie);
+
+        //Recupération des id des variables pour la requete sql du fichier csv
+        if (!($varIdMois == null)) {
+            $varIdMois = $varIdMois->getID();
+        }
+        if (!($varIdService == null)) {
+            $varIdService = $varIdService->getID();
+        }
+        if (!($varIdEntreprise == null)) {
+            $varIdEntreprise = $varIdEntreprise->getID();
+        }
+        if (!($varIdSalarie == null)) {
+            $varIdSalarie = $varIdSalarie->getID();
+        }
+        
         //var_dump($parcours);
         // $parcours = $em->getRepository(Parcours::class)->findParcoursDateMoisGlob($varAnnee,$varIdMois,$nbResult);
         return $this->render('gestion_bilan/index.html.twig', array(
@@ -71,6 +99,9 @@ class GestionBilanController extends AbstractController
      */
     public function BilanParcours($varAnnee = null, $varIdMois = null, $varIdService = null, $varIdEntreprise = null, $varIdSalarie = null)
     {
+        /*
+        * Fonction qui prend en entré les différents filtres de l'utilisateur et qui ressort une répoonse permettant le téléchargement d'un fichier csv
+        */
         //Récupération de mes données avec les paramètres su formulaire
         $nbResult = null;
         $filename = "Bilan";
@@ -85,55 +116,57 @@ class GestionBilanController extends AbstractController
             $varIdMois = null;
         }
         else {
-            $filename .= "_".$varIdMois;
+            $filename .= "_".$em->getRepository(Mois::class)->find($varIdMois)->getMois();
         }
         if ($varIdService == "null") {
             $varIdService = null;
         }
         else {
-            $filename .= "_".$varIdService;
+            $filename .= "_".$em->getRepository(Service::class)->find($varIdService)->getService();
         }
         if ($varIdEntreprise == "null") {
             $varIdEntreprise = null;
         }
         else {
-            $filename .= "_".$varIdEntreprise;
+            $filename .= "_".$em->getRepository(Entreprise::class)->find($varIdEntreprise)->getEntreprise();
         }
         if ($varIdSalarie == "null") {
             $varIdSalarie = null;
         }
         else {
-            $filename .= "_".$varIdSalarie;
+            $filename .= "_".$em->getRepository(Salarie::class)->find($varIdSalarie)->getSalarie();
         }
+        $madate = new \DateTime();
 
+        $filename.="-".$madate->format('d-m-Y');
         $filename.=".csv";
         
         $parcours = $em->getRepository(Parcours::class)->findParcours($varAnnee,$varIdMois,$nbResult, $varIdService, $varIdEntreprise, $varIdSalarie);
         //création d'une réponse
-        $response = new StreamedResponse();
-        $response->setCallback(
-            function () use ($parcours, $varAnnee, $varIdEntreprise, $varIdMois, $varIdSalarie, $varIdService) {
-                $handle = fopen('php://output', 'r+');
-                foreach ($parcours as $parcour) {
-                    //array list fields you need to export
-                    $data = array(
-                        $parcour->getAnnee(),
-                        $parcour->getIdMois(),
-                        $parcour->getIdSalarie(),
-                        $parcour->getIdSalarie()->getIdService(),
-                        $parcour->getIdSalarie()->getIdEntreprise(),
-                        $parcour->getNbKmEffectue(),
-                        $parcour->getIndemnisation(),
-                    );
-                    fputcsv($handle, $data);
-                }
-                fclose($handle);
-            }
-        );
-        $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition', 'attachment; filename='.$filename);
 
-        return $response;
+
+        //On intègre les données dans une variable pour ensuite les envoyés à la réponse 
+        $data = "Année;Mois;Salarié;Service;Entreprise;Nb Km;Indemnisation;\n";
+        foreach($parcours as $parcour){
+            $data .= 
+                $parcour->getAnnee().";".
+                $parcour->getIdMois().";".
+                $parcour->getIdSalarie().";".
+                $parcour->getIdSalarie()->getIdService().";".
+                $parcour->getIdSalarie()->getIdEntreprise().";".
+                $parcour->getNbKmEffectue().";".
+                $parcour->getIndemnisation().";\n"
+            ;
+        }
+        //On retourne une réponse de manière a obtenir un fichier excel à la fin
+        return new Response(
+            $data,
+            200,
+            [
+                'Content-Type' => 'application/vnd.ms-excel; charset=utf8',
+                "Content-disposition" => "attachment; filename=".$filename
+            ]
+            );
     }
     
 

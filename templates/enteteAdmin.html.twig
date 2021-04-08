@@ -1,0 +1,33 @@
+<div id="entete">
+    <div id="logo">
+        {% if app.environment == 'dev' %}
+            <img src="{{ asset('style/back/images/Yncrea_BM_ISEN-Brest_horizontal.jpg') }}" alt="CSE Yncrea" style="width:200px;">
+        {% else %}
+            <img src="{{ asset('style/back/images/Yncrea_BM_ISEN-Brest_horizontal.jpg') }}" alt="CSE Yncrea" style="width:200px;">
+        {% endif %}
+    </div>
+    <div id="menu">
+        
+        <div class="item"><a href="{{ path('isen_back_office_homepage') }}">Accueil</a></div>
+        <div class="item"><a href="{{ path('salarie_index') }}">Salariés</a></div>
+        {# <div class="item"><a href="{{ path('isen_back_office_stat_clot') }}">Stat</a></div> #}
+        <div class="item"><a href="{{ path('parcours_recherche') }}">Bilan</a></div>
+        <div class="item"><a href="{{ path('parcours_index') }}">Demandes</a></div>
+        <div class="item"><a href="{{ path('entreprise_index') }}">Entreprises</a></div>
+        <div class="item"><a href="{{ path('service_index') }}">Services</a></div>
+        <div class="item"><a href="{{ path('typetrajet_index') }}">Types de trajets</a></div>
+        <div class="item"><a href="{{ path('ville_index') }}">Villes</a></div>
+                
+        <div class="item"><a href="{{ path('config_index') }}">Parametres</a></div>
+        {% if is_granted('ROLE_SUP_ADMIN') %}
+            <div class="item"><a href="{{ path('role_index') }}">Roles</a></div>
+            <div class="item"><a href="{{ path('mois_index') }}">Mois</a></div>
+            <div class="item"><a href="{{ path('parcoursdate_index') }}">Parcours</a></div>
+            <div class="item"><a href="{{ path('typeconfig_index') }}">Type config</a></div>
+        {% endif %}
+        
+        
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>

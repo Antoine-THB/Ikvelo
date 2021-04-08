@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Salarie;
+use App\Entity\Ville;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,7 +27,7 @@ class SalarieFrontType extends AbstractType
                 //->add('idVille')
                 
                 ->add('idVille', EntityType::class, [
-                    'class' => 'IsenBackOfficeBundle:Ville',
+                    'class' => Ville::class,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('u')
                                 ->where('u.actif=TRUE')

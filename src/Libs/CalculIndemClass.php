@@ -11,6 +11,7 @@ namespace App\Libs;
 use App\Entity\Config;
 use App\Entity\Salarie;
 use App\Entity\DeclarationHonneur;
+use App\Entity\ParcoursDate;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 

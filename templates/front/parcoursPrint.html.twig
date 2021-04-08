@@ -1,4 +1,4 @@
-{% extends 'FrontOffice/basePrint.html.twig' %}
+{% extends 'basePrint.html.twig' %}
 
 {% block body %}
     <h1>Demande d'indemnisation IK Vélo N° {{ parcour.id }}</h1>
@@ -61,7 +61,7 @@
     </div>
             
     <div class="list-print">
-        {{ include('FrontOffice/default/depJourList.html.twig', {depJours: parcourJours, mois: parcour.idmois, impression: 'oui'}) }}
+        {{ include('front/depJourList.html.twig', {depJours: parcourJours, mois: parcour.idmois, impression: 'oui'}) }}
     </div>
     <div class="total-indemnisation">
         Total Indemnisation : {{ parcour.indemnisation }}&nbsp;€

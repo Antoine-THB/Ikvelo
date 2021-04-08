@@ -78,6 +78,4 @@ class BilanRepository extends EntityRepository {
             return $requete->getQuery()->execute();
     }
 
-
-
 }

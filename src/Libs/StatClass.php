@@ -11,6 +11,7 @@ namespace App\Libs;
 use Doctrine\ORM\EntityManager;
 use App\Entity\Parcours;
 
+
 /**
  * Description of StatClass
  * founie les statistiques de km effectués et indemnisation remboursée

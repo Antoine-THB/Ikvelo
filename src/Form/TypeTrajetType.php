@@ -12,7 +12,8 @@ class TypeTrajetType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('libelle');
+        $builder->add('libelle')
+                ->add('coef');
     }
     
 

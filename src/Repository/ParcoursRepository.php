@@ -219,7 +219,7 @@ class ParcoursRepository extends EntityRepository {
         
         
         $requete =  $this->createQueryBuilder('p')
-                    ->leftJoin('IsenBackOfficeBundle:Salarie', 's', 'WITH', 's.id = p.idSalarie')
+                    ->leftJoin(Salarie::class, 's', 'WITH', 's.id = p.idSalarie')
                     ->select('IF(p.idMois>:moisRefInt,p.annee+1,p.annee) AS newan')   
                     ->addSelect('s.nom as nom')
                     ->addSelect('s.prenom as prenom')
@@ -273,7 +273,7 @@ class ParcoursRepository extends EntityRepository {
     {
           
         $requete =  $this->createQueryBuilder('p')
-                    ->leftJoin('IsenBackOfficeBundle:Mois', 'm', 'WITH', 'm.id = p.idMois')
+                    ->leftJoin(Mois::class, 'm', 'WITH', 'm.id = p.idMois')
                     ->select('m.mois')
                     ->addSelect('AVG(p.nbKmEffectue) as moyNbKmEffectue')
                     ->addSelect('AVG(p.indemnisation) as moyIndemnisation')
@@ -297,7 +297,7 @@ class ParcoursRepository extends EntityRepository {
         if(isset($annee)){
            
             $requete =  $this->createQueryBuilder('p')
-                        ->leftJoin('IsenBackOfficeBundle:Mois', 'm', 'WITH', 'm.id = p.idMois')
+                        ->leftJoin(Mois::class, 'm', 'WITH', 'm.id = p.idMois')
                         ->select('p.annee')   
                         //->addSelect('m.id as mois')
                         ->addSelect('m.mois')
@@ -314,7 +314,7 @@ class ParcoursRepository extends EntityRepository {
 
         }else{
             $requete =  $this->createQueryBuilder('p')
-                        ->leftJoin('IsenBackOfficeBundle:Mois', 'm', 'WITH', 'm.id = p.idMois')
+                        ->leftJoin(Mois::class, 'm', 'WITH', 'm.id = p.idMois')
                         ->select('p.annee')   
                         //->addSelect('m.id as mois')
                         ->addSelect('m.mois')
@@ -524,7 +524,7 @@ class ParcoursRepository extends EntityRepository {
     {
           
         $requete =  $this->createQueryBuilder('p')
-                    ->leftJoin('IsenBackOfficeBundle:Mois', 'm', 'WITH', 'm.id = p.idMois')
+                    ->leftJoin(Mois::class, 'm', 'WITH', 'm.id = p.idMois')
                     ->select('m.id as moisid')
                     ->addSelect('AVG(p.nbKmEffectue) as moyNbKmEffectue')
                     ->addSelect('AVG(p.indemnisation) as moyIndemnisation')
@@ -652,6 +652,7 @@ class ParcoursRepository extends EntityRepository {
     {
         $requete =  $this->createQueryBuilder('p')
                         ->leftJoin(ParcoursDate::class, 'pd', 'WITH', 'pd.idParcours = p.id')
+                        // ->addSelect('p.idMois')
                         //->leftJoin('pd.id', 'pd')
                         ->addSelect('SUM(pd.nbKmEffectue) as nbKmEffectue')
                         ->addSelect('SUM(pd.indemnisation) as totIndemnisation')
@@ -663,7 +664,7 @@ class ParcoursRepository extends EntityRepository {
                         ;
         
         if(!is_null($idMois)){
-            $requete           
+            $requete          
             ->andWhere('p.idMois = :idMois')                            
             ->setParameter('idMois', $idMois)            
             ;
@@ -731,13 +732,9 @@ class ParcoursRepository extends EntityRepository {
     public function findWithNb($nbResult)
     {
         $requete =  $this->createQueryBuilder('p')
-                        //->orderBy('p.annee, p.idMois, p.idSalarie','DESC,ASC,ASC')
                         ->orderBy('p.annee','DESC')
                         ->orderBy('p.idMois, p.idSalarie')
-                        //->orderBy('p.annee, p.idMois, p.idSalarie','DESC,ASC,ASC')
-                        //->add('orderBy', 'p.annee DESC')
-                        //->add('orderBy', 'p.idMois ASC')
-                        //->add('orderBy', 'p.idSalarie ASC')
+     
                         ;
         
         if(!is_null($nbResult)){
@@ -758,8 +755,6 @@ class ParcoursRepository extends EntityRepository {
             ->leftJoin(Service::class, 'service', 'WITH', 'service.id = salarie.idService')
             ->leftJoin(Entreprise::class, 'entreprise', 'WITH', 'entreprise.id = salarie.idEntreprise')
             ->where('p.validation = 1')
-
-            
             ->groupBy('p.id')
             ;
 

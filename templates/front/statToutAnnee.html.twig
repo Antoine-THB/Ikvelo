@@ -1,0 +1,32 @@
+    <h2>{{title}}</h2>
+    <h3>en fonction du mois de cloture comptable ({{moisRef}})</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Annee</th>
+                
+                
+                <th>Nombre total Km</th>
+                <th>Indemnisation totale</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for stat in tabStatAn %}
+            <tr>
+
+                <td>{{ stat.newan }}</td>
+                
+                <td>{{ stat.nbKmEffectue }}&nbsp;km</td>
+
+                <td>{{ stat.totIndemnisation }}&nbsp;€</td>
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+

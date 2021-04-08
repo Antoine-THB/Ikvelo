@@ -68,4 +68,11 @@ class TypeConfig
     {
         return $this->typeConfig;
     }
+
+    public function setTypeConfig(string $typeConfig): self
+    {
+        $this->typeConfig = $typeConfig;
+
+        return $this;
+    }
 }

@@ -28,6 +28,13 @@ class TypeTrajet
      */
     private $libelle;
 
+    /**
+     * @var float
+     * 
+     * @ORM\Column(name="coef_km",type="float")
+     */
+    private $coef;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,6 +54,18 @@ class TypeTrajet
     public function __toString()
     {
         return $this->libelle;
+    }
+
+    public function getCoef(): ?float
+    {
+        return $this->coef;
+    }
+
+    public function setCoef(float $coef): self
+    {
+        $this->coef = $coef;
+
+        return $this;
     }
 
 }

@@ -62,7 +62,6 @@ class Tools extends Controller {
      */
     public function getSalarie($username)
     {
- 
         $salarie = $this->em->getRepository(Salarie::class)
                                 ->findOneByCasUsername($username);
         
