@@ -10,6 +10,7 @@ use App\Entity\Salarie;
 use App\Entity\DeclarationHonneur;
 use App\Entity\Config;
 use App\Entity\Mois;
+use App\Entity\TypeTrajet;
 use App\Form\ParcoursDateFrontType;
 use App\Form\ParcoursFrontType;
 use App\Form\RechercheVilleType;
@@ -272,6 +273,8 @@ class FrontController extends AbstractController
      */
     public function mensuelNewAction(Request $request)
     {
+        // var_dump($request);
+        //Le temps qu'on affiche le commentaire 
         //cette année         
         $maNewdate = new \DateTime();
         $cetteAnnee = $maNewdate->format('Y');
@@ -331,7 +334,7 @@ class FrontController extends AbstractController
             $mois = $monparcours->getIdMois()->getId();
             
             //verification que le mois n'est pas deja utilisé
-            $parcoursAnMois = $em->getRepository(ParcoursRepository::class)->listParcoursUserAnMois($mois, $an, $user->getId()); 
+            $parcoursAnMois = $em->getRepository(Parcours::class)->listParcoursUserAnMois($mois, $an, $user->getId()); 
             $nbOccurence = count($parcoursAnMois);
             if($nbOccurence != 0){
                 $monmessage .= '!! Attention ce mois a déjà été utilisé '.$nbOccurence.' fois !!';
@@ -582,14 +585,15 @@ class FrontController extends AbstractController
         $situationSalarie = new LibsCalculIndemClass($em,$user->getId(),$annee);
         
         //recupertaion du parametre de coef
-        $config = $em->getRepository(Config::class)->findOneByLibelle('coef_km');
+        // $config = $em->getRepository(Config::class)->findOneByLibelle('coef_km');
+        $config = $em->getRepository(TypeTrajet::class)->findOneByLibelle('Trotinette')->getCoef();
         
         $parcoursDate = new Parcoursdate();
         $parcoursDate->setIdParcours($parcours);
         $parcoursDate->setNbKmEffectue($salarie->getDistance()*2);
         
         //calcul du montant d'indemnisation possible pour le salarié
-        $indemnisationPossible = $salarie->getDistance()*2*$config->getValueNum();
+        $indemnisationPossible = $salarie->getDistance()*2*$config;
         if($indemnisationPossible < $situationSalarie->getMontantRestant()){
             $parcoursDate->setIndemnisation($indemnisationPossible);
         }else{
@@ -611,7 +615,7 @@ class FrontController extends AbstractController
                 array('annee'       => $parcours->getAnnee(),
                         'mois'      => $parcours->getIdMois()->getId(),
                         'nbkminit'  => $salarie->getDistance(),
-                        'coef'      => $config->getValueNum()
+                        'coef'      => $config
                     )) ;
         $form->handleRequest($request);
 
@@ -640,7 +644,7 @@ class FrontController extends AbstractController
             $em->flush();
             
             //recuperation des infos de nb km et indemnite pour le parcours pour mise à jour
-            $infoKmIndem = $em->getRepository(ParcoursDateRepository::class)->recupParcoursDate4Parcours($parcoursDate->getIdParcours($id)->getId());
+            $infoKmIndem = $em->getRepository(ParcoursDate::class)->recupParcoursDate4Parcours($parcoursDate->getIdParcours($id)->getId());
                         
             //mise à jour du parcours correspondant
             $parcours->setNbKmEffectue($infoKmIndem[0]['nbKmEffectue']);

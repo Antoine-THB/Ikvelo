@@ -29,7 +29,7 @@ class RoleController extends AbstractController
 
         $roles = $em->getRepository(Role::class)->findAll();
 
-        return $this->render('templates\role\index.html.twig', array(
+        return $this->render('role\index.html.twig', array(
             'roles' => $roles,
         ));
     }
@@ -53,7 +53,7 @@ class RoleController extends AbstractController
             return $this->redirectToRoute('role_show', array('id' => $role->getId()));
         }
 
-        return $this->render('templates\role\new.html.twig', array(
+        return $this->render('role\new.html.twig', array(
             'role' => $role,
             'form' => $form->createView(),
         ));
@@ -68,7 +68,7 @@ class RoleController extends AbstractController
     {
         $deleteForm = $this->createDeleteForm($role);
 
-        return $this->render('templates\role\show.html.twig', array(
+        return $this->render('role\show.html.twig', array(
             'role' => $role,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -91,7 +91,7 @@ class RoleController extends AbstractController
             return $this->redirectToRoute('role_edit', array('id' => $role->getId()));
         }
 
-        return $this->render('templates\role\edit.html.twig', array(
+        return $this->render('role\edit.html.twig', array(
             'role' => $role,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
