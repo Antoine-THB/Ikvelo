@@ -632,7 +632,8 @@ class FrontController extends AbstractController
             
             //met à jour l'indemnisation en fonction du nombre de km saisi
             //calcul du montant d'indemnisation possible pour le salarié
-            $indemnisationPossible = $monparcours->getNbKmEffectue()*$config->getValueNum();
+            // $indemnisationPossible = $monparcours->getNbKmEffectue()*$config;
+            $indemnisationPossible = $monparcours->getNbKmEffectue()*$em->getRepository(TypeTrajet::class)->findOneById($monparcours->getidTypeTrajet())->getCoef();
             if($indemnisationPossible < $situationSalarie->getMontantRestant()){
                 $parcoursDate->setIndemnisation($indemnisationPossible);
             }else{
