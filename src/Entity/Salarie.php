@@ -125,6 +125,11 @@ class Salarie
      */
     private $idRole;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $tpsTravail = 100;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -291,4 +296,24 @@ class Salarie
     }
 
 
+
+    /**
+     * Get the value of tpsTravail
+     */ 
+    public function getTpsTravail()
+    {
+        return $this->tpsTravail;
+    }
+
+    /**
+     * Set the value of tpsTravail
+     *
+     * @return  self
+     */ 
+    public function setTpsTravail($tpsTravail)
+    {
+        $this->tpsTravail = $tpsTravail;
+
+        return $this;
+    }
 }

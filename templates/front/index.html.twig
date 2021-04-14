@@ -9,26 +9,32 @@
     <div class="alert--info message-stat">
         Vos statistisques pour {{an}} <br>
         Vous avez parcouru : {{parcoursNbKm}} km et vous avez eu {{parcoursIndemnisation}} € d'indemnisation.<br>
-        Il vous reste {{montantRestant}} € d'indemnisation disponible pour cette année ({{an}}).
+        Il vous reste {{montantRestantTC}} € d'indemnisation disponible pour cette année ({{an}}).
+        Il vous reste {{montantRestant}} € d'indemnisation disponible en transport en commun pour cette année ({{an}}).
     </div>
+    <br>
     <div class="grid-2 .has-gutter">
         <div class="format-grid-1">
-            {{ include('front/parcoursStatList.html.twig', {parcours: parcoursNC, title: 'non closes', an: an}) }}
+            {{ include('front/parcoursStatList.html.twig', {parcours: parcoursNC, title: 'non clos', an: an}) }}
         </div> 
         <div class="format-grid-1">
-            {{ include('front/parcoursStatList.html.twig', {parcours: parcoursV, title: 'validées', an: an}) }}
+            {{ include('front/parcoursStatList.html.twig', {parcours: parcoursV, title: 'validés', an: an}) }}
+        </div>
+        <div class="format-grid-1">
+            {{ include('front/abonnement.html.twig', {abonnement: abonnementNV, title: 'Abonnement non validés en cours'}) }}
+        </div>
+        <div class="format-grid-1">
+            {{ include('front/abonnement.html.twig', {abonnement: abonnementV, title: 'Abonnement validés en cours'}) }}
         </div> 
         <div class="format-grid-1">
-            
-            {{ include('front/parcoursStatList.html.twig', {parcours: parcoursNV, title: 'non validées', an: an}) }}
+            {{ include('front/parcoursStatList.html.twig', {parcours: parcoursNV, title: 'non validés', an: an}) }}
             {{ include('front/statToutAnnee.html.twig', {tabStatAn: tabStatAn, title: 'Remboursements pour toutes les années', moisRef: moisRef}) }}
-        </div>  #}
+        </div>
         <div class="format-grid-1">
-            
             {{ include('front/statAnnee.html.twig', {tabStat: tabStat, title: 'Statistiques pour l\'année en cours'}) }}
         </div> 
-
     </div>
+
 {% endblock %}
 
 

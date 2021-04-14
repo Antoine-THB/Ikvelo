@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Abonnement{% endblock %}
+
+{% block body %}
+    <h1>Abonnement</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ abonnement.id }}</td>
+            </tr>
+            {# <tr>
+                <th>Début</th>
+                <td>{{ abonnement.DateDebut }}</td>
+            </tr>
+            <tr>
+                <th>Fin</th>
+                <td>{{ abonnement.DateFin }}</td>
+            </tr> #}
+            <tr>
+                <th>Montant</th>
+                <td>{{ abonnement.montant }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('front_index') }}">Retourner sur votre profil</a>
+        </li>
+    </ul>
+{% endblock %}

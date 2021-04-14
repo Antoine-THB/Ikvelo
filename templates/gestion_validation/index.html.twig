@@ -1,6 +1,6 @@
 {% extends 'baseGestion.html.twig' %}
 
-{% block title %}Validation des Trajets{% endblock %}
+{% block title %}Validation{% endblock %}
 
 {% block body %}
 
@@ -47,6 +47,43 @@
                             <i class="fas fa-check-square"></i>   
                     {% else %}
                         <a href="{{ path('gestion_validation_Trajet', { 'id': parcour.id }) }}" class="js-click"> 
+                            <i class="far fa-check-square"></i>
+                        </a> 
+                    {% endif %}                        
+                </td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Validation des Abonnements</h1>
+
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Salarié</th>
+                <th>Date début</th>                
+                <th>Date fin</th>
+                <th>Montant</th>
+                <th>Indemnisation</th>
+                <th>Validation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for abo in abonnement %}
+            <tr>                
+                <td>{{ abo.idSalarie}}</td>
+                <td>{{ abo.DateDebut.format('d/m/Y') }}</td>
+                <td>{{ abo.DateFin.format('d/m/Y') }}</td> 
+                <td>{{ abo.montant }}&nbsp;€</td>
+                <td>{{ abo.indemnisation }}&nbsp;€</td>
+                <td>
+                    {% if abo.validation == 'Oui' %}
+                            <i class="fas fa-check-square"></i>   
+                    {% else %}
+                        <a href="{{ path('gestion_validation_Abonnement', { 'id': abo.id }) }}" class="js-click"> 
                             <i class="far fa-check-square"></i>
                         </a> 
                     {% endif %}                        

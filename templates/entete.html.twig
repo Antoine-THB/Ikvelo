@@ -11,7 +11,16 @@
         <div class="item"><a href="{{ path('front_profil') }}">Mon profil</a></div>
         <div class="item"><a href="{{ path("front_parcours") }}">Mes déplacements</a></div>
         <div class="item"><a href="{{ path('front_new_mensuel') }}">Nouveau formulaire mensuel</a></div>
- 
+        <div class="item"><a href="{{ path('abonnement') }}">Saisir un abonnement</a></div>
+        {% if is_granted('ROLE_SUP_ADMIN') %}
+            <div class="item"><a href="{{ path('isen_back_office_homepage') }}">Admin</a></div>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="item"><a href="{{ path('isen_back_office_homepage') }}">Admin</a></div>
+        {% endif %}
+        {% if is_granted('ROLE_GESTION') %}
+            <div class="item"><a href="{{ path('gestion') }}">Gestion</a></div>
+        {% endif %}
         <div class="clear"></div>
     </div>
     <div class="clear"></div>

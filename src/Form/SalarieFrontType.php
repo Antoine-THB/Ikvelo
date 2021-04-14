@@ -41,6 +41,7 @@ class SalarieFrontType extends AbstractType
                 //->add('idVille')            
                 ->add('idService',null,array('label' => 'Service'))
                 ->add('idEntreprise',null,array('label' => 'Ecole'))
+                ->add('tpsTravail',null,array('label' => 'Temps travaillé (%)'))
                 //->add('idRole')
                 //->add('actif')
                 ;

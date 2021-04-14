@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonnement;
 use App\Libs\CalculIndemClass as LibsCalculIndemClass;
 use App\Libs\StatClass as LibsStatClass;
 use App\Entity\Parcours;
@@ -15,6 +16,7 @@ use App\Form\ParcoursDateFrontType;
 use App\Form\ParcoursFrontType;
 use App\Form\RechercheVilleType;
 use App\Form\SalarieFrontType;
+use App\Libs\CalculIndemTCClass;
 use App\Libs\Tools;
 use App\Repository\ParcoursDateRepository;
 use App\Repository\ParcoursRepository;
@@ -128,6 +130,12 @@ class FrontController extends AbstractController
         
         //liste des parcours validés
         $parcoursV = $em->getRepository(Parcours::class)->listParcoursUserValidAn($user->getId(),$an);
+
+        //Récupération des abonnements Validés
+        $abonnementV = $em->getRepository(Abonnement::class)->AboValid($user->getId());
+
+        //Récupération des abonnements Non Validés
+        $abonnementNV = $em->getRepository(Abonnement::class)->AboNonValid($user->getId());
         
         //récupération des statistiques pour l'année en cours
         $objStat = new LibsStatClass($em);
@@ -167,7 +175,7 @@ class FrontController extends AbstractController
         
         //recuperation de la situation du salarié par rapport au plafond
         $situationSalarie = new LibsCalculIndemClass($em,$user->getId(),$an);
-        
+        $situationSalarieTC = new CalculIndemTCClass($em,$user->getId(),$an);
         //bilan des remboursements "comptables" en fonction du mois de réference
         //recuperation  du mois de référence
         $moisRef = $em->getRepository(Config::class)->findOneByLibelle("mois_fin_periode");
@@ -184,7 +192,8 @@ class FrontController extends AbstractController
             'parcoursNbKm'              => $situationSalarie->getParcoursNbKm(),
             //'parcoursIndemnisation'     => $parcoursIndemnisation,
             'parcoursIndemnisation'     => $situationSalarie->getMontantIndemEnCours(),
-            'montantRestant'            => $situationSalarie->getMontantRestant(),
+            'montantRestant'            => $situationSalarieTC->getMontantRestant(),
+            'montantRestantTC'            => $situationSalarie->getMontantRestant(),
             'tabStat'                   => $tabStat,
             'tabMois'                   => $tabMois,
             'tabKm'                     => $tabKm,
@@ -196,6 +205,8 @@ class FrontController extends AbstractController
             'listMoyIndem'              => $listMoyIndem,
             'tabStatAn'                 => $tabStat,
             'moisRef'                   => $moisRef->getValue(),
+            'abonnementV'               => $abonnementV,
+            'abonnementNV'              => $abonnementNV,
             ));
     }
     
@@ -583,10 +594,10 @@ class FrontController extends AbstractController
         
         //recuperation de la situation du salarié par rapport au plafond
         $situationSalarie = new LibsCalculIndemClass($em,$user->getId(),$annee);
-        
+
         //recupertaion du parametre de coef
         // $config = $em->getRepository(Config::class)->findOneByLibelle('coef_km');
-        $config = $em->getRepository(TypeTrajet::class)->findOneByLibelle('Trotinette')->getCoef();
+        $config = $em->getRepository(TypeTrajet::class)->findOneByLibelle('Vélo')->getCoef();
         
         $parcoursDate = new Parcoursdate();
         $parcoursDate->setIdParcours($parcours);
@@ -594,6 +605,11 @@ class FrontController extends AbstractController
         
         //calcul du montant d'indemnisation possible pour le salarié
         $indemnisationPossible = $salarie->getDistance()*2*$config;
+        //condition pour savoir si le salarié travail plus de 50%
+        if($salarie->getTpsTravail()<=49){
+            $indemnisationPossible = $indemnisationPossible*$salarie->getTpsTravail()/100;
+        }
+        
         if($indemnisationPossible < $situationSalarie->getMontantRestant()){
             $parcoursDate->setIndemnisation($indemnisationPossible);
         }else{
@@ -634,6 +650,10 @@ class FrontController extends AbstractController
             //calcul du montant d'indemnisation possible pour le salarié
             // $indemnisationPossible = $monparcours->getNbKmEffectue()*$config;
             $indemnisationPossible = $monparcours->getNbKmEffectue()*$em->getRepository(TypeTrajet::class)->findOneById($monparcours->getidTypeTrajet())->getCoef();
+            //condition pour savoir si le salarié travail plus de 50%
+            if($salarie->getTpsTravail()<=49){
+                $indemnisationPossible = $indemnisationPossible*$salarie->getTpsTravail()/100;
+            }
             if($indemnisationPossible < $situationSalarie->getMontantRestant()){
                 $parcoursDate->setIndemnisation($indemnisationPossible);
             }else{

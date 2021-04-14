@@ -19,9 +19,9 @@ use Doctrine\ORM\EntityManager;
 /**
  * Description of CalculIndemClass
  *
- * @author christophe
+ * @author antoine
  */
-class CalculIndemClass {
+class CalculIndemTCClass {
     private $em;
     private $userId;
     private $annee;
@@ -50,7 +50,7 @@ class CalculIndemClass {
      */
     public function recupSituationPlafond() {
         //récupération du plafond
-        $plafondObj = $this->em->getRepository(Config::class)->findOneByLibelle('plafond');
+        $plafondObj = $this->em->getRepository(Config::class)->findOneByLibelle('plafond_TC');
         $valPlafond = $plafondObj->getValueNum();
                 
         //récupération de la limite avant plafond
@@ -59,7 +59,7 @@ class CalculIndemClass {
 
         
         //recupération du montant des indemnisation acquis ou en cours
-         $this->montantIndemEnCours = $this->em->getRepository(ParcoursDate::class)->statParcoursUserAnIndemnisation($this->userId,$this->annee)+$this->em->getRepository(Abonnement::class)->UserAnIndemnisation($this->userId,$this->annee);
+         $this->montantIndemEnCours = $this->em->getRepository(Abonnement::class)->UserAnIndemnisation($this->userId,$this->annee);
         
         //calcul du montant restant pour le salarié
         if( $this->montantIndemEnCours >= $valPlafond ){
@@ -70,12 +70,12 @@ class CalculIndemClass {
         
         
         if( $this->montantIndemEnCours + $valPlafondAlrt >= $valPlafond) {
-            $this->message = "Attention, vous arrivez à la limite de vos indemnisations.\n";
+            $this->message = "Attention, vous arrivez à la limite de vos indemnisations pour les transports en commun.\n";
             $this->message .= "Il vous reste ".$this->montantRestant."€ pour l'année ".$this->annee."\n\r";
         }
         
         //recuperation du nombre de km parcourus
-        $this->parcoursNbKm = $this->em->getRepository(ParcoursDate::Class)->statParcoursUserAnNbKm($this->userId,$this->annee);
+        // $this->parcoursNbKm = $this->em->getRepository(ParcoursDate::Class)->statParcoursUserAnNbKm($this->userId,$this->annee);
     }
     
     public function getMessage() {

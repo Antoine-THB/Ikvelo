@@ -1,0 +1,26 @@
+    <h2> {{title }}</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Montant</th>
+                <th>Indemnisation</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for abo in abonnement %}
+            <tr>
+
+                <td>{{ abo.DateDebut.format('d/m/Y')}}</td>
+                <td>{{ abo.DateFin.format('d/m/Y') }}</td>
+                <td>{{ abo.montant }} €</td>
+                <td>{{ abo.indemnisation }} €</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

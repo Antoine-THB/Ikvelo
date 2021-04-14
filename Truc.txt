@@ -68,6 +68,16 @@ C:\xampp\htdocs\projet-M1\public\export
 Modifier newDepJour.html.twig
 
 
+A faire:
+     faire un système de validation des abonnnements 
+     Afficher les abonnements en cours 
+     Créer un pop up quand il ne reste plus longtemps avant la fin 
+     Réaliser le temps de travail du salarié 
+
+
+Question pour le seuil 50% :
+    - Pour le système d'abonnement y'en a t'il un?
+
 
 
 

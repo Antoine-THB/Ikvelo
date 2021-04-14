@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonnement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Parcours;
@@ -41,9 +42,11 @@ class GestionValidationController extends AbstractController
 
         //Il me faudra surement changer la requête SQL 
         $parcours = $em->getRepository(Parcours::class)->findWithNbAndValidation($nbResult, $varValidation);
+        $abonnement = $em->getRepository(Abonnement::class)->findWithNbAndValidation($nbResult, $varValidation);
 
         return $this->render('gestion_validation/index.html.twig', [
             'parcours' => $parcours,
+            'abonnement' => $abonnement,
             'form'=> $form->createView(),
         ]);
     }
@@ -51,7 +54,7 @@ class GestionValidationController extends AbstractController
     /**
      * Fonction qui permet de valider un trajet
      * 
-     * @Route("/validation/{id}", name="gestion_validation_Trajet")
+     * @Route("/validation/trajet/{id}", name="gestion_validation_Trajet")
      */
     public function validation(Parcours $parcours)
     {
@@ -66,6 +69,29 @@ class GestionValidationController extends AbstractController
             $parcours->setValidation(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($parcours);
+            $em->flush();
+            return $this->json(['code'=>200, 'message'=>"Inactif"], 200);
+        }
+
+    }
+     /**
+     * Fonction qui permet de valider un trajet
+     * 
+     * @Route("/validation/abonnement/{id}", name="gestion_validation_Abonnement")
+     */
+    public function validationAbonnement(Abonnement $abo)
+    {
+        if($abo->getValidation()){
+            $abo->setValidation(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($abo);
+            $em->flush();
+            return $this->json(['code'=>200, 'message'=>"Actif"], 200);
+        }
+        else{
+            $abo->setValidation(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($abo);
             $em->flush();
             return $this->json(['code'=>200, 'message'=>"Inactif"], 200);
         }
