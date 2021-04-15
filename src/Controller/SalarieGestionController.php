@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Abonnement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Salarie;
@@ -29,7 +30,6 @@ class SalarieGestionController extends AbstractController
 
         return $this->render('salarie_gestion/index.html.twig', array(
             'salaries'  => $salaries,
-
         ));
     }
         /**
@@ -112,11 +112,13 @@ class SalarieGestionController extends AbstractController
         //$tabStat = $objStat->genereStatParcoursParAnSal($salarie);
         $tabStat = $objStat->genereStatParcoursParAnSalMoisInit($salarie,$moisRefInt);
         //var_dump($tabStat);
-
+        //Récupération des abonnements Validés
+        $abonnementV = $em->getRepository(Abonnement::class)->AboValid($salarie->getId());
         return $this->render('salarie_gestion/show.html.twig', array(
             'salarie'       => $salarie,
             'tabStatAn'     => $tabStat,
             'moisRef'       => $moisRef->getValue(),
+            'abonnementV'   => $abonnementV,
         ));
     }
 

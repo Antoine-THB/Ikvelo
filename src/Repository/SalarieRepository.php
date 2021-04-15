@@ -28,7 +28,7 @@ class SalarieRepository extends EntityRepository {
         if(is_null($idUser)){//pour tous les salariés
             return $this
                     ->createQueryBuilder('s')
-                    ->leftJoin('IsenBackOfficeBundle:Parcours', 'p', 'WITH', 'p.idSalarie = s.id')
+                    ->leftJoin(Parcours::class , 'p', 'WITH', 'p.idSalarie = s.id')
                     ->addSelect('SUM(p.nbKmEffectue) as nbKmEffectue')
                     ->addSelect('SUM(p.indemnisation) as totIndemnisation')
                     ->where('p.annee = :an') 
@@ -40,7 +40,7 @@ class SalarieRepository extends EntityRepository {
         }else{//pour le salarié fourni
             return $this
                     ->createQueryBuilder('s')
-                    ->leftJoin('IsenBackOfficeBundle:Parcours', 'p', 'WITH', 'p.idSalarie = s.id')
+                    ->leftJoin(Parcours::class, 'p', 'WITH', 'p.idSalarie = s.id')
                     ->addSelect('SUM(p.nbKmEffectue) as nbKmEffectue')
                     ->addSelect('SUM(p.indemnisation) as totIndemnisation')
                     ->where('p.annee = :an') 
@@ -211,7 +211,7 @@ class SalarieRepository extends EntityRepository {
     public function findParcoursDateMois($an,$idMois,$nbResult)
     {
         $requete =  $this->createQueryBuilder('p')
-                        ->leftJoin('IsenBackOfficeBundle:ParcoursDate', 'pd', 'WITH', 'pd.idParcours = p.id')
+                        ->leftJoin(ParcoursDate::class, 'pd', 'WITH', 'pd.idParcours = p.id')
                         //->leftJoin('pd.id', 'pd')
                         ->addSelect('SUM(pd.nbKmEffectue) as nbKmEffectue')
                         ->addSelect('SUM(pd.indemnisation) as totIndemnisation')
@@ -242,7 +242,8 @@ class SalarieRepository extends EntityRepository {
     public function findGlobal($nbResult)
     {
         $requete =  $this->createQueryBuilder('p')
-                        ->leftJoin('IsenBackOfficeBundle:ParcoursDate', 'pd', 'WITH', 'pd.idParcours = p.id')
+                        ->leftJoin(ParcoursDate::class, 'pd', 'WITH', 'pd.idParcours = p.id')
+                        // ->addSelect('p.annee as annee')
                         ->addSelect('SUM(pd.nbKmEffectue) as nbKmEffectue')
                         ->addSelect('SUM(pd.indemnisation) as totIndemnisation')
 

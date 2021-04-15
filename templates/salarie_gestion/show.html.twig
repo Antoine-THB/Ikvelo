@@ -35,6 +35,10 @@
                         <td>{{ salarie.urlGeovelo }}</td>
                     </tr>
                     <tr>
+                        <th>Temps travaillé (%)</th>
+                        <td>{{ salarie.tpsTravail }}</td>
+                    </tr>
+                    <tr>
                         <th>Created</th>
                         <td>{% if salarie.created %}{{ salarie.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                     </tr>
@@ -51,7 +55,8 @@
         </div>
         <div class="liste-accueil">
             {{ include('parcours/statToutAnnee.html.twig', {tabStatAn: tabStatAn, title: 'Statistiques pour toutes les années', moisRef: moisRef}) }}
-        </div>    
+            {{ include('front/abonnement.html.twig', {abonnement: abonnementV, title: 'Abonnement validés en cours'}) }}
+        </div> 
     </div>
     <ul>
         <li>

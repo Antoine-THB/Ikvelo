@@ -73,6 +73,7 @@ border-bottom: 1px solid #714f6c;
     width: 500px;
 }
 
+
 table tr.valide {
     background-color: #ddf3c2;
     text-align: center;
@@ -223,8 +224,12 @@ table.signature {
     margin-bottom: 10px;
 }
 
+.box{
+    margin-right: 25px;
+}
+
 .message-stat {
-    width: 600px;
+    width: 100%;
 }
 
 /* IMPRESSION */
@@ -239,3 +244,28 @@ table.signature {
     padding-left: 10px;
     color: red;
 }
+/* The alert message box */
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+    margin-right: 25px;
+}
+  
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+  /* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+} 

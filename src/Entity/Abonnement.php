@@ -25,11 +25,11 @@ class Abonnement
 
     /**
      * @var \Salarie
-     * @ORM\ManyToMany(targetEntity="Salarie")
+     *
+     * @ORM\ManyToOne(targetEntity="Salarie")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_salarie", referencedColumnName="id")
      * })
-     * @ORM\Column(type="integer")
      */
     private $id_salarie;
 
@@ -76,7 +76,7 @@ class Abonnement
         return $this;
     }
 
-    public function getIdSalarie(): ?int
+    public function getIdSalarie(): ?Salarie
     {
         return $this->id_salarie;
     }

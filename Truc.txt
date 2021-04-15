@@ -79,6 +79,24 @@ Question pour le seuil 50% :
     - Pour le système d'abonnement y'en a t'il un?
 
 
+Faut il faire une partie bilan pour les abonnements?
+
+Problème pour la partie CasUsername avec la BDD sur la structure relationnel
+
+
+ce qui a été fait :
+    - Tps de travail si inférieur à 50% 
+    - Le coefficient du type de trajet
+    - la saisie d'un abonnement
+    - la partie gestion peut maintenant valider un abonnement
+    - la réalisation des 2 plafonds qui s'adaptent
+    - Possibilité de voir les justificatifs pour la gestion 
+    - Message pop up pour dire que l'abonnement se termine dans moins de 14 jours
+
+
+
+
+
 
 
 

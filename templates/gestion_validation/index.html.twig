@@ -73,8 +73,8 @@
         </thead>
         <tbody>
         {% for abo in abonnement %}
-            <tr>                
-                <td>{{ abo.idSalarie}}</td>
+            <tr>               
+                <td><a href="{{ path('abonnement_show_gestion', { 'id': abo.id }) }}">{{ abo.idSalarie }}</a></td>
                 <td>{{ abo.DateDebut.format('d/m/Y') }}</td>
                 <td>{{ abo.DateFin.format('d/m/Y') }}</td> 
                 <td>{{ abo.montant }}&nbsp;€</td>

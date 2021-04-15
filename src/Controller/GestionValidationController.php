@@ -97,4 +97,16 @@ class GestionValidationController extends AbstractController
         }
 
     }
+
+    /**
+     * Finds and displays a abonnement entity.
+     *
+     * @Route("/abonnement/show/{id}", name="abonnement_show_gestion", methods={"GET"})
+     */
+    public function showAction(Abonnement $abo)
+    {
+        return $this->render('gestion_validation/show.html.twig', array(
+            'abonnement'       => $abo,
+        ));
+    }
 }

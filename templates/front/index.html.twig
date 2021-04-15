@@ -6,11 +6,19 @@
         {# <h1>Bienvenue Monsieur&nbsp;NOM</h1> #}
 
     </div>
-    <div class="alert--info message-stat">
-        Vos statistisques pour {{an}} <br>
-        Vous avez parcouru : {{parcoursNbKm}} km et vous avez eu {{parcoursIndemnisation}} € d'indemnisation.<br>
-        Il vous reste {{montantRestantTC}} € d'indemnisation disponible pour cette année ({{an}}).
-        Il vous reste {{montantRestant}} € d'indemnisation disponible en transport en commun pour cette année ({{an}}).
+    {% if ( messageAvertissement != null) %}
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{ messageAvertissement }}
+        </div> 
+    {% endif %}
+    <div class="box">
+        <div class="alert--info message-stat">
+            Vos statistisques pour {{an}} <br>
+            Vous avez parcouru : {{parcoursNbKm}} km et vous avez eu {{parcoursIndemnisation}} € d'indemnisation.<br>
+            Il vous reste {{montantRestantTC}} € d'indemnisation disponible pour cette année ({{an}}).
+            Il vous reste {{montantRestant}} € d'indemnisation disponible en transport en commun pour cette année ({{an}}).
+        </div>
     </div>
     <br>
     <div class="grid-2 .has-gutter">

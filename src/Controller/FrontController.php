@@ -19,7 +19,6 @@ use App\Form\SalarieFrontType;
 use App\Libs\CalculIndemTCClass;
 use App\Libs\Tools;
 use App\Repository\ParcoursDateRepository;
-use App\Repository\ParcoursRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -133,7 +132,11 @@ class FrontController extends AbstractController
 
         //Récupération des abonnements Validés
         $abonnementV = $em->getRepository(Abonnement::class)->AboValid($user->getId());
-
+        $messageAvertissement = null;
+        foreach($abonnementV as $abo){
+            if (intval($abo->getDateDebut()->diff($abo->getDateFin())->format('%R%a'))<=14)
+            $messageAvertissement = "Votre abonnement se termine dans moins de 14 jours.";
+        }
         //Récupération des abonnements Non Validés
         $abonnementNV = $em->getRepository(Abonnement::class)->AboNonValid($user->getId());
         
@@ -207,6 +210,7 @@ class FrontController extends AbstractController
             'moisRef'                   => $moisRef->getValue(),
             'abonnementV'               => $abonnementV,
             'abonnementNV'              => $abonnementNV,
+            'messageAvertissement'      => $messageAvertissement,
             ));
     }
     

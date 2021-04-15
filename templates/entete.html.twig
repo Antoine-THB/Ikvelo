@@ -14,6 +14,7 @@
         <div class="item"><a href="{{ path('abonnement') }}">Saisir un abonnement</a></div>
         {% if is_granted('ROLE_SUP_ADMIN') %}
             <div class="item"><a href="{{ path('isen_back_office_homepage') }}">Admin</a></div>
+            <div class="item"><a href="{{ path('gestion') }}">Gestion</a></div>
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
             <div class="item"><a href="{{ path('isen_back_office_homepage') }}">Admin</a></div>
