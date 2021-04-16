@@ -134,8 +134,9 @@ class FrontController extends AbstractController
         $abonnementV = $em->getRepository(Abonnement::class)->AboValid($user->getId());
         $messageAvertissement = null;
         foreach($abonnementV as $abo){
-            if (intval($abo->getDateDebut()->diff($abo->getDateFin())->format('%R%a'))<=14)
-            $messageAvertissement = "Votre abonnement se termine dans moins de 14 jours.";
+            $value = $abo->getDateDebut()->diff($abo->getDateFin())->format('%R%a');
+            if (intval($value)<=14)
+            $messageAvertissement = "Votre abonnement se termine dans ".$value." jours.";
         }
         //Récupération des abonnements Non Validés
         $abonnementNV = $em->getRepository(Abonnement::class)->AboNonValid($user->getId());
@@ -179,6 +180,7 @@ class FrontController extends AbstractController
         //recuperation de la situation du salarié par rapport au plafond
         $situationSalarie = new LibsCalculIndemClass($em,$user->getId(),$an);
         $situationSalarieTC = new CalculIndemTCClass($em,$user->getId(),$an);
+
         //bilan des remboursements "comptables" en fonction du mois de réference
         //recuperation  du mois de référence
         $moisRef = $em->getRepository(Config::class)->findOneByLibelle("mois_fin_periode");
@@ -596,8 +598,10 @@ class FrontController extends AbstractController
         $mois = $parcours->getIdMois()->getId();
         $moisLibel = $parcours->getIdMois()->getMois();
         
-        //recuperation de la situation du salarié par rapport au plafond
-        $situationSalarie = new LibsCalculIndemClass($em,$user->getId(),$annee);
+        //recuperation de la situation du salarié par rapport au plafond total
+        $situationSalarieTotal = new CalculIndemTCClass($em,$user->getId(),$annee);
+        //recuperation de la situation du salarié par rapport au plafond transport en commun
+        $situationSalarieTC = new CalculIndemTCClass($em,$user->getId(),$annee);
 
         //recupertaion du parametre de coef
         // $config = $em->getRepository(Config::class)->findOneByLibelle('coef_km');
@@ -613,12 +617,25 @@ class FrontController extends AbstractController
         if($salarie->getTpsTravail()<=49){
             $indemnisationPossible = $indemnisationPossible*$salarie->getTpsTravail()/100;
         }
-        
-        if($indemnisationPossible < $situationSalarie->getMontantRestant()){
-            $parcoursDate->setIndemnisation($indemnisationPossible);
-        }else{
-            $parcoursDate->setIndemnisation($situationSalarie->getMontantRestant());
+        //Condition si disponible TC
+        if($indemnisationPossible<$situationSalarieTC->getMontantRestant()){
+            //condition si dispo total
+            if($indemnisationPossible<$situationSalarieTotal->getMontantRestant()){
+                $parcoursDate->setIndemnisation($indemnisationPossible); 
+            }
+            else{
+                $parcoursDate->setIndemnisation($situationSalarieTotal->getMontantRestant()); 
+            }
         }
+        else{
+            if($situationSalarieTC->getMontantRestant()<$situationSalarieTotal->getMontantRestant()){
+                $parcoursDate->setIndemnisation($situationSalarieTC->getMontantRestant()); 
+                }
+                else{
+                    $parcoursDate->setIndemnisation($situationSalarieTotal->getMontantRestant()); 
+                }
+        }
+
         
         
         //selection du jour du mois
@@ -658,10 +675,23 @@ class FrontController extends AbstractController
             if($salarie->getTpsTravail()<=49){
                 $indemnisationPossible = $indemnisationPossible*$salarie->getTpsTravail()/100;
             }
-            if($indemnisationPossible < $situationSalarie->getMontantRestant()){
-                $parcoursDate->setIndemnisation($indemnisationPossible);
-            }else{
-                $parcoursDate->setIndemnisation($situationSalarie->getMontantRestant());
+            //Condition si disponible TC
+            if($indemnisationPossible<$situationSalarieTC->getMontantRestant()){
+                //condition si dispo total
+                if($indemnisationPossible<$situationSalarieTotal->getMontantRestant()){
+                    $parcoursDate->setIndemnisation($indemnisationPossible); 
+                }
+                else{
+                    $parcoursDate->setIndemnisation($situationSalarieTotal->getMontantRestant()); 
+                }
+            }
+            else{
+                if($situationSalarieTC->getMontantRestant()<$situationSalarieTotal->getMontantRestant()){
+                    $parcoursDate->setIndemnisation($situationSalarieTC->getMontantRestant()); 
+                    }
+                    else{
+                        $parcoursDate->setIndemnisation($situationSalarieTotal->getMontantRestant()); 
+                    }
             }
             //$parcoursDate->setIndemnisation($monparcours->getNbKmEffectue()*$config->getValueNum());
             
@@ -689,7 +719,7 @@ class FrontController extends AbstractController
             'parcoursId'    => $id,
             'titre'         => 'Nouveau',
             'delete_form'   => null,
-            'monmessage'    => $situationSalarie->getMessage()
+            'monmessage'    => $situationSalarieTotal->getMessage()
         ));
     }
     

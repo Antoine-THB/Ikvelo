@@ -10,17 +10,21 @@
                 <th>Id</th>
                 <td>{{ abonnement.id }}</td>
             </tr>
-            {# <tr>
+            <tr>
                 <th>Début</th>
-                <td>{{ abonnement.DateDebut }}</td>
-            </tr>
+                <td>{{ abonnement.DateDebut.format('d/m/Y') }}</td>
+            </tr> 
             <tr>
                 <th>Fin</th>
-                <td>{{ abonnement.DateFin }}</td>
-            </tr> #}
+                <td>{{ abonnement.DateFin.format('d/m/Y') }}</td>
+            </tr> 
             <tr>
                 <th>Montant</th>
                 <td>{{ abonnement.montant }}</td>
+            </tr>
+            <tr>
+                <th>Indemnisation</th>
+                <td>{{ abonnement.indemnisation }}</td>
             </tr>
         </tbody>
     </table>

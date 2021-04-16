@@ -50,7 +50,7 @@ class CalculIndemTCClass {
      */
     public function recupSituationPlafond() {
         //récupération du plafond
-        $plafondObj = $this->em->getRepository(Config::class)->findOneByLibelle('plafond_TC');
+        $plafondObj = $this->em->getRepository(Config::class)->findOneByLibelle('plafond_velo');
         $valPlafond = $plafondObj->getValueNum();
                 
         //récupération de la limite avant plafond
@@ -70,7 +70,7 @@ class CalculIndemTCClass {
         
         
         if( $this->montantIndemEnCours + $valPlafondAlrt >= $valPlafond) {
-            $this->message = "Attention, vous arrivez à la limite de vos indemnisations pour les transports en commun.\n";
+            $this->message = "Attention, vous arrivez à la limite de vos indemnisations pour les transports en mobilités douces.\n";
             $this->message .= "Il vous reste ".$this->montantRestant."€ pour l'année ".$this->annee."\n\r";
         }
         

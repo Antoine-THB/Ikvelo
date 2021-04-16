@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-
+use App\Repository\TicketJournalierRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * * @ORM\Table(name="abonnement", indexes={@ORM\Index(name="fk_id_salarie", columns={"id_salarie"})})
- * @ORM\Entity(repositoryClass="App\Repository\AbonnementRepository")
+ * @ORM\Table(name="ticket_journalier", indexes={@ORM\Index(name="fk_id_salarie", columns={"id_salarie"})})
+ * @ORM\Entity(repositoryClass="App\Repository\TicketJournalierRepository")
  */
-class Abonnement
+class TicketJournalier
 {
     /**
      * @ORM\Id
@@ -36,14 +36,8 @@ class Abonnement
     /**
      * @ORM\Column(type="date")
      */
-    private $date_debut;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date_fin;
-
-    /**
+    private $date;
+        /**
      * @ORM\Column(type="float")
      */
     private $montant;
@@ -57,7 +51,6 @@ class Abonnement
      * @ORM\Column(type="boolean")
      */
     private $validation="0";
-
 
     public function getId(): ?int
     {
@@ -81,38 +74,26 @@ class Abonnement
         return $this->id_salarie;
     }
 
-    public function setIdSalarie(?Salarie $idSalarie): self
+    public function setIdSalarie(Salarie $id_salarie): self
     {
-        $this->id_salarie = $idSalarie;
+        $this->id_salarie = $id_salarie;
 
         return $this;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->date_debut;
+        return $this->date;
     }
 
-    public function setDateDebut(\DateTimeInterface $date_debut): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->date_debut = $date_debut;
+        $this->date = $date;
 
         return $this;
     }
 
-    public function getDateFin(): ?\DateTimeInterface
-    {
-        return $this->date_fin;
-    }
-
-    public function setDateFin(\DateTimeInterface $date_fin): self
-    {
-        $this->date_fin = $date_fin;
-
-        return $this;
-    }
-
-    public function getMontant(): ?float
+        public function getMontant(): ?float
     {
         return $this->montant;
     }

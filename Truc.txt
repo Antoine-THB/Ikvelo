@@ -92,8 +92,13 @@ ce qui a été fait :
     - la réalisation des 2 plafonds qui s'adaptent
     - Possibilité de voir les justificatifs pour la gestion 
     - Message pop up pour dire que l'abonnement se termine dans moins de 14 jours
+    - Modification des plafonds (16/04)
 
 
+Il y a un problème si on souhaite ajouter un abonnment sur une autre année, le plafond diminue le plafond de l'année qui est en cours
+Résoudre le problème de la requête sql
+
+Est ce la partie gestion peut avoir accès à la page paramètres et Types Trajet ?
 
 
 

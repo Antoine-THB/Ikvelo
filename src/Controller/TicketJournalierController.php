@@ -2,19 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Abonnement;
 use App\Entity\Config;
-use App\Form\AbonnementType;
+use App\Entity\TicketJournalier;
+use App\Form\TicketJournalierType;
 use App\Libs\CalculIndemClass;
+use App\Libs\CalculIndemTCClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-class AbonnementController extends AbstractController
+class TicketJournalierController extends AbstractController
 {
     /**
-     * @Route("/abonnement", name="abonnement")
+     * @Route("/ticket/journalier", name="ticket_journalier")
      */
     public function index(Request $request)
     {   
@@ -29,17 +30,16 @@ class AbonnementController extends AbstractController
         $salarie = $user->getSalarie();
 
         $em = $this->getDoctrine()->getManager();
+
         //recuperation de la situation du salarié par rapport au plafond total
         $situationSalarieTotal = new CalculIndemClass($em,$user->getId(),$cetteAnnee);
-        //recuperation de la situation du salarié par rapport au plafond transport en commun
-        // $situationSalarieTC = new CalculIndemTCClass($em,$user->getId(),$cetteAnnee);
-        $datedebut = $maNewdate;
-        $dateFin = $maNewdate->modify('+1 month');
-        $abonnement = new Abonnement();
-        $abonnement->setIdSalarie($salarie);
-        $abonnement->setDateDebut($datedebut);
-        $abonnement->setDateFin($dateFin);
-        $form = $this->createForm(AbonnementType::class, $abonnement);
+        $situationSalarieTC = new CalculIndemTCClass($em,$user->getId(),$cetteAnnee);
+
+        $ticketJournalier = new TicketJournalier();
+        $ticketJournalier->setIdSalarie($salarie);
+        $ticketJournalier->setDate($maNewdate);
+
+        $form = $this->createForm(TicketJournalierType::class, $ticketJournalier);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -63,44 +63,58 @@ class AbonnementController extends AbstractController
 
             // updates the 'brochureFilename' property to store the PDF file name
             // instead of its contents
-            $abonnement->setJustificatif($newFilename);
+            $ticketJournalier->setJustificatif($newFilename);
 
             // ... persist the $product variable or any other work
             $em = $this->getDoctrine()->getManager();
 
             //Récupération de l'indemnisdation possible
-            $indemnisation = $data->getMontant()*$em->getRepository(Config::class)->findOneByLibelle('coef_TC')->getValueNum();
+            $indemnisationPossible = $data->getMontant()*$em->getRepository(Config::class)->findOneByLibelle('coef_TC')->getValueNum();
             //condition pour savoir si le salarié travail plus de 50%
             if($salarie->getTpsTravail()<=49){
-                $indemnisation = $indemnisation*$salarie->getTpsTravail()/100;
+                $indemnisationPossible = $indemnisationPossible*$salarie->getTpsTravail()/100;
             }
             
-            if($indemnisation < $situationSalarieTotal->getMontantRestant()){
-                $abonnement->setIndemnisation($indemnisation);
-            }else{
-                $abonnement->setIndemnisation($situationSalarieTotal->getMontantRestant());
+            //Condition si disponible TC
+            if($indemnisationPossible<$situationSalarieTC->getMontantRestant()){
+                //condition si dispo total
+                if($indemnisationPossible<$situationSalarieTotal->getMontantRestant()){
+                    $ticketJournalier->setIndemnisation($indemnisationPossible); 
+                }
+                else{
+                    $ticketJournalier->setIndemnisation($situationSalarieTotal->getMontantRestant()); 
+                }
+            }
+            else{
+                if($situationSalarieTC->getMontantRestant()<$situationSalarieTotal->getMontantRestant()){
+                    $ticketJournalier->setIndemnisation($situationSalarieTC->getMontantRestant()); 
+                    }
+                    else{
+                        $ticketJournalier->setIndemnisation($situationSalarieTotal->getMontantRestant()); 
+                    }
             }
             
             
-            $em->persist($abonnement);
+            $em->persist($ticketJournalier);
             $em->flush();
-            return $this->redirectToRoute('abonnement_show', array('id' => $abonnement->getId()));
+            return $this->redirectToRoute('ticket_show', array('id' => $ticketJournalier->getId()));
             
         }
 
-        return $this->render('abonnement/index.html.twig', [
+        return $this->render('ticket_journalier/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-
+    
+    
     /**
-     * @Route("/abonnement/show/{id}", name="abonnement_show")
+     * @Route("/ticket/show/{id}", name="ticket_show")
      */
-    public function show(Abonnement $abonnement)
+    public function show(TicketJournalier $ticketJournalier)
     {
 
-        return $this->render('abonnement/show.html.twig', array(
-            'abonnement' => $abonnement,
+        return $this->render('ticket_journalier/show.html.twig', array(
+            'ticket' => $ticketJournalier,
         ));
     }
 
@@ -113,5 +127,4 @@ class AbonnementController extends AbstractController
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
-
 }
