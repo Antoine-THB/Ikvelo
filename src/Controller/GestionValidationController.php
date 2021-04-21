@@ -6,6 +6,7 @@ use App\Entity\Abonnement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Parcours;
+use App\Entity\TicketJournalier;
 use App\Form\ValidationGestionType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -43,10 +44,12 @@ class GestionValidationController extends AbstractController
         //Il me faudra surement changer la requête SQL 
         $parcours = $em->getRepository(Parcours::class)->findWithNbAndValidation($nbResult, $varValidation);
         $abonnement = $em->getRepository(Abonnement::class)->findWithNbAndValidation($nbResult, $varValidation);
+        $tickets = $em->getRepository(TicketJournalier::class)->findWithNbAndValidation($nbResult, $varValidation);
 
         return $this->render('gestion_validation/index.html.twig', [
             'parcours' => $parcours,
             'abonnement' => $abonnement,
+            'tickets' => $tickets,
             'form'=> $form->createView(),
         ]);
     }
@@ -96,6 +99,40 @@ class GestionValidationController extends AbstractController
             return $this->json(['code'=>200, 'message'=>"Inactif"], 200);
         }
 
+    }
+         /**
+     * Fonction qui permet de valider un trajet
+     * 
+     * @Route("/validation/ticket/{id}", name="gestion_validation_ticket")
+     */
+    public function validationTicket(TicketJournalier $ticket)
+    {
+        if($ticket->getValidation()){
+            $ticket->setValidation(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ticket);
+            $em->flush();
+            return $this->json(['code'=>200, 'message'=>"Actif"], 200);
+        }
+        else{
+            $ticket->setValidation(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($ticket);
+            $em->flush();
+            return $this->json(['code'=>200, 'message'=>"Inactif"], 200);
+        }
+
+    }
+    /**
+     * Finds and displays a ticket entity.
+     *
+     * @Route("/ticket/show/{id}", name="ticket_show_gestion", methods={"GET"})
+     */
+    public function showTicketAction(TicketJournalier $ticket)
+    {
+        return $this->render('gestion_validation/showTicket.html.twig', array(
+            'ticket'       => $ticket,
+        ));
     }
 
     /**

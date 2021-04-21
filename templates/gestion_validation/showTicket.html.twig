@@ -1,0 +1,36 @@
+{% extends 'baseGestion.html.twig' %}
+
+{% block body %}
+    <h1>Salarie</h1>
+    <div class="grid-2 .has-gutter">
+        <div class="liste-accueil">
+            <table>
+                    <tr>
+                    <th>Salarie</th>
+                        <td>{{ ticket.idSalarie }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{ ticket.Date.format('Y/m/d') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Montant</th>
+                        <td>{{ ticket.montant }}</td>
+                    </tr>
+                    <tr>
+                        <th>Indemnisation</th>
+                        <td>{{ ticket.indemnisation }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="liste-accueil" >
+            <embed src="\uploads\brochures\{{ ticket.justificatif }}" type="application/pdf" width="100%" height="400px">
+        </div>    
+    </div>
+    <ul>
+        <li>
+            <a href="{{ path('gestion_validation_index') }}">Retour</a>
+        </li>
+    </ul>
+{% endblock %}

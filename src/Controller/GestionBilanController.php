@@ -64,7 +64,6 @@ class GestionBilanController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         
         $parcours = $em->getRepository(Parcours::class)->findParcours($varAnnee,$varIdMois,$nbResult, $varIdService, $varIdEntreprise, $varIdSalarie);
-
         //Recupération des id des variables pour la requete sql du fichier csv
         if (!($varIdMois == null)) {
             $varIdMois = $varIdMois->getID();

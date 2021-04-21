@@ -3,7 +3,6 @@
 {% block title %}Gestion Bilan{% endblock %}
 
 {% block body %}
-
     <h1>Bienvenue sur la page Bilan</h1>
 
     {{ form_start(form) }}
@@ -46,7 +45,7 @@
                 <th>Service</th>
                 <th>Entreprise</th>
                 <th>Nb km</th>
-                <th>Indemnisation</th>
+                <th>Indemnisation(mobilités douces)</th>
                 
             </tr>
         </thead>
@@ -54,13 +53,13 @@
         {% for parcour in parcours %}
             <tr class="{% if loop.index is divisible by(2) %}even{% else %}odd{% endif %}">
 
-                <td>{{ parcour.annee }}</td>
-                <td>{{ parcour.idMois }}</td>
-                <td>{{ parcour.idSalarie}}</td>
-                <td>{{ parcour.idSalarie.idService}}</td>
-                <td>{{ parcour.idSalarie.idEntreprise}}</td>
+                <td>{{ parcour[0].annee }}</td>
+                <td>{{ parcour[0].idMois }}</td>
+                <td>{{ parcour[0].idSalarie}}</td>
+                <td>{{ parcour[0].idSalarie.idService}}</td>
+                <td>{{ parcour[0].idSalarie.idEntreprise}}</td>
                 <td>{{ parcour.nbKmEffectue }}&nbsp;km</td>
-                <td>{{ parcour.indemnisation }}&nbsp;€</td>
+                <td>{{ parcour.totIndemnisation }}&nbsp;€</td>
 
                 
             </tr>

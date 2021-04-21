@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 
 /**
- * Description of VilleRepository
+ * Description of BilanRepository
  *
  * @author antoine
  */
@@ -27,10 +27,15 @@ class BilanRepository extends EntityRepository {
             ->leftJoin(Salarie::class, 'salarie', 'WITH', 'salarie.id = p.idSalarie')
             ->leftJoin(Service::class, 'service', 'WITH', 'service.id = salarie.idService')
             ->leftJoin(Entreprise::class, 'entreprise', 'WITH', 'entreprise.id = salarie.idEntreprise')
+            ->select('p.annee')
+            ->addSelect('p.idMois')
+            ->addSelect('p.idSalarie')
+            ->addSelect('salarie.idService')
+            ->addSelect('salarie.idEntreprise')
+            ->addSelect('sum(p.nbKmEffectue) as nbKmEffectue')
+            ->addSelect('sum(p.indemnisation) as totIndemnisation')
             ->where('p.validation = 1')
-
-            ->orderBy('p.annee, p.idMois, p.idSalarie')
-            ->groupBy('p.id')
+            ->groupBy('p.annee, p.idMois, salarie.id')
             ;
 
             if(!is_null($varAnnee)){

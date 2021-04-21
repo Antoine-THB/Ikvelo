@@ -66,7 +66,7 @@ class ParcoursController extends AbstractController
         
         $em = $this->getDoctrine()->getManager();
         //$parcours = $em->getRepository('IsenBackOfficeBundle:Parcours')->findParcoursDateMois($varAnnee,$varIdMois,$nbResult);
-        $parcours = $em->getRepository(Parcours::class)->findParcoursDateMoisGlob($varAnnee,$varIdMois,$nbResult);
+        $parcours = $em->getRepository(Parcours::class)->findParcoursDateMois($varAnnee,$varIdMois,$nbResult);
         //var_dump($parcours);
         
         return $this->render('parcours/recherche.html.twig', array(

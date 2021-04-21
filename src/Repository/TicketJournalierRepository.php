@@ -47,4 +47,31 @@ class TicketJournalierRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findWithNbAndValidation($nbResult, $varValidation)
+    {
+        $requete =  $this->createQueryBuilder('tj')
+                        ->orderBy('tj.date_debut', 'DESC')
+                        ->orderBy('tj.id_salarie')
+                        ;
+        
+        if (!is_null($nbResult)) {
+            $requete
+            ->setMaxResults($nbResult)
+            ;
+        }
+
+        if ($varValidation === "Validé") {
+            $requete
+            ->andWhere('tj.validation =  1')
+            ;
+        }
+        if ($varValidation === "Non validé") {
+            $requete
+            ->andWhere('tj.validation =  0')
+            ;
+        }
+        
+        return $requete->getQuery()->execute();
+    }
+ 
 }

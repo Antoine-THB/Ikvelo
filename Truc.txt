@@ -100,6 +100,20 @@ Résoudre le problème de la requête sql
 
 Est ce la partie gestion peut avoir accès à la page paramètres et Types Trajet ?
 
+Reste à faire : 
+    - validation des tickets journaliers par la partie gestion
+    - Modifier la requete sql 
+    - faire les abonnements avec un remboursement par mois
+
+Ce que je n'ai pas fait:
+    - Test automatisé
+
+Ce que je veux faire pour la partie abonnement :
+    - Création d'une table remboursement mesuel 
+    - Calcul la différence entre le debut et la fin
+    - calcul le nbr mois qui reste avant la fin de l'abonnement 
+    - on regarde le nbr de remboursement mensuel qui ont déja eu lieu 
+    - 
 
 
 

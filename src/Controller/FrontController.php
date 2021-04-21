@@ -11,6 +11,7 @@ use App\Entity\Salarie;
 use App\Entity\DeclarationHonneur;
 use App\Entity\Config;
 use App\Entity\Mois;
+use App\Entity\RemboursementAbonnement;
 use App\Entity\TypeTrajet;
 use App\Form\ParcoursDateFrontType;
 use App\Form\ParcoursFrontType;
@@ -134,13 +135,26 @@ class FrontController extends AbstractController
         $abonnementV = $em->getRepository(Abonnement::class)->AboValid($user->getId());
         $messageAvertissement = null;
         foreach($abonnementV as $abo){
-            $value = $abo->getDateDebut()->diff($abo->getDateFin())->format('%R%a');
+            //condition pour mettre un message si l'abonnement se termine bientot
+            $value = $abo->getDateDebut()->diff($abo->getDateFin())->format('%a');
             if (intval($value)<=14)
             $messageAvertissement = "Votre abonnement se termine dans ".$value." jours.";
+
+            $nbrRemboursement = $em->getRepository(RemboursementAbonnement::class)->nbrRemboursement($abo->getId());
+            $nbrMoisAbonnement = intval($abo->getDateDebut()->diff($abo->getDateFin())->format('%m'))+1;
+            $nbrMoisRestantAbonnemnt = intval($madate->diff($abo->getDateFin())->format('%m'))+1;
+            
         }
         //Récupération des abonnements Non Validés
         $abonnementNV = $em->getRepository(Abonnement::class)->AboNonValid($user->getId());
         
+        //boucle qui parcourt les abonnnements
+        //Récupère le dernier remboursement, si un mois s'est écoulé nouveau remboursement 
+        //vérification si plafond n'est pas atteint
+        
+
+
+
         //récupération des statistiques pour l'année en cours
         $objStat = new LibsStatClass($em);
         $tabStat = $objStat->genereStatParcoursPourAnSal($an,$user->getId());

@@ -652,9 +652,7 @@ class ParcoursRepository extends EntityRepository {
     {
         $requete =  $this->createQueryBuilder('p')
                         ->leftJoin(ParcoursDate::class, 'pd', 'WITH', 'pd.idParcours = p.id')
-                        ->select('p.annee')
-                        ->select('p.idMois')
-                        ->select('p.idSalarie')
+
                         // ->addSelect('p.idMois')
                         //->leftJoin('pd.id', 'pd')
                         ->addSelect('SUM(pd.nbKmEffectue) as nbKmEffectue')
@@ -704,7 +702,7 @@ class ParcoursRepository extends EntityRepository {
     public function findParcoursDateMoisGlob($an,$idMois,$nbResult)
     {
         $requete =  $this->createQueryBuilder('p')
-                        //->leftJoin('IsenBackOfficeBundle:ParcoursDate', 'pd', 'WITH', 'pd.idParcours = p.id')
+                        ->leftJoin(ParcoursDate::class, 'pd', 'WITH', 'pd.idParcours = p.id')
                         //->leftJoin('pd.id', 'pd')
                         //->addSelect('SUM(pd.nbKmEffectue) as nbKmEffectue')
                         //->addSelect('SUM(pd.indemnisation) as totIndemnisation')
@@ -757,17 +755,13 @@ class ParcoursRepository extends EntityRepository {
             ->leftJoin(Salarie::class, 'salarie', 'WITH', 'salarie.id = p.idSalarie')
             ->leftJoin(Service::class, 'service', 'WITH', 'service.id = salarie.idService')
             ->leftJoin(Entreprise::class, 'entreprise', 'WITH', 'entreprise.id = salarie.idEntreprise')
-            // ->select('p.annee')
-            // ->addSelect('p.idMois')
-            // ->addSelect('p.idSalarie')
-            // ->addSelect('salarie.idService')
-            // ->addSelect('salarie.idEntreprise')
-            // ->addSelect('sum(p.nbKmEffectue) as nbKmEffectue')
-            // ->addSelect('sum(p.indemnisation) as totIndemnisation')
+            ->addSelect('sum(p.nbKmEffectue) as nbKmEffectue')
+            ->addSelect('sum(p.indemnisation) as totIndemnisation')
 
             ->where('p.validation = 1')
-            ->groupBy('p.annee, p.idMois, salarie.id')
+            ->groupBy('p.annee, p.idSalarie')
             ;
+
 
             if(!is_null($varAnnee)){
                 $requete           
@@ -811,7 +805,7 @@ class ParcoursRepository extends EntityRepository {
                 ->setMaxResults($nbResult)            
                 ;
             }
-            $requete ->orderBy('p.annee DESC, p.idMois, p.idSalarie');
+            $requete ->orderBy('p.annee DESC, p.idSalarie');
             return $requete->getQuery()->execute();
     }
 

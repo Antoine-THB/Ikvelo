@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Abonnement;
 use App\Entity\Config;
+use App\Entity\RemboursementAbonnement;
 use App\Form\AbonnementType;
 use App\Libs\CalculIndemClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,15 +75,28 @@ class AbonnementController extends AbstractController
             if($salarie->getTpsTravail()<=49){
                 $indemnisation = $indemnisation*$salarie->getTpsTravail()/100;
             }
-            
+            //Remboursement en une fois
             if($indemnisation < $situationSalarieTotal->getMontantRestant()){
                 $abonnement->setIndemnisation($indemnisation);
             }else{
                 $abonnement->setIndemnisation($situationSalarieTotal->getMontantRestant());
             }
             
-            
+            //remboursement un mois
+            // $remboursement = new RemboursementAbonnement;
+            // $remboursement->setIdAbonnement($abonnement);
+            // $remboursement->setDate($maNewdate);
+            // $mensuel = $indemnisation/(intval(date_diff($abonnement->getDateDebut(),$abonnement->getDateFin())->format('%m'))+1);
+            // if($mensuel < $situationSalarieTotal->getMontantRestant()){
+            //     $abonnement->setIndemnisation($mensuel);
+            //     $remboursement->setMontant($mensuel);
+            // }else{
+            //     $abonnement->setIndemnisation($situationSalarieTotal->getMontantRestant());
+            //     $remboursement->setMontant($situationSalarieTotal->getMontantRestant());
+            // }
+
             $em->persist($abonnement);
+            // $em->persist($remboursement);
             $em->flush();
             return $this->redirectToRoute('abonnement_show', array('id' => $abonnement->getId()));
             
